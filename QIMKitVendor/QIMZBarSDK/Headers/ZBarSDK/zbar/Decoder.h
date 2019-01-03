@@ -27,7 +27,7 @@
 /// Decoder C++ wrapper
 
 #ifndef _ZBAR_H_
-
+# error "include zbar.h in your application, **not** zbar/Decoder.h"
 #endif
 
 #include <string>

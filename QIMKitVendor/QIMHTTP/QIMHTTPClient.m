@@ -118,13 +118,11 @@ static NSString *baseUrl = nil;
     __weak typeof(asiRequest) weakAsiRequest = asiRequest;
     asiRequest.completionBlock = ^{
         __strong typeof(weakAsiRequest) strongAsiRequest = weakAsiRequest;
-        QIMVerboseLog(@"【RequestUrl : %@\n", weakAsiRequest.url);
-        QIMVerboseLog(@"RequestHeader : %@\n", weakAsiRequest.requestHeaders);
         QIMHTTPResponse *response = [QIMHTTPResponse new];
         response.code = strongAsiRequest.responseStatusCode;
         response.data = strongAsiRequest.responseData;
         response.responseString = strongAsiRequest.responseString;
-        QIMVerboseLog(@"Response : %@ \n", response);
+        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", weakAsiRequest.url, weakAsiRequest.requestHeaders, response);
         if (completeHandler) {
             completeHandler(response);
         }

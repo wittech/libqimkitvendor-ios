@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "0.0.1"
+  s.version      = "1.0.1-beta"
   s.summary      = "Qunar chat App 6.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
   s.author        = { "qunar mobile" => "QIMKitVendor@qunar.com" }
   s.source       = { :git => "git@gitlab.corp.qunar.com:qchat/libQIMKitVendor-iOS.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
+  s.source_files = 'QIMKitVendor/QIMKitVendorPrivateLog.h'
 
   s.subspec 'Audio' do |audio|
     
@@ -50,21 +51,21 @@ Pod::Spec.new do |s|
   
   s.subspec 'JSON' do |json|
       
-      json.public_header_files = 'QIMKitVendor/QIMJSON/**/*.{h}'
+      json.public_header_files = 'QIMKitVendor/QIMJSON/**/*.{h,m,c}'
       json.source_files = ['QIMKitVendor/QIMJSON/**/*.{h,m,c}']
       
   end
   
   s.subspec 'DOG' do |dog|
       
-      dog.public_header_files = 'QIMKitVendor/QIMWatchDog/**/*.{h}'
+      dog.public_header_files = 'QIMKitVendor/QIMWatchDog/**/*.{h,m,c}'
       dog.source_files = ['QIMKitVendor/QIMWatchDog/**/*.{h,m,c}']
       
   end
   
   s.subspec 'UUID' do |uuid|
       
-      uuid.public_header_files = 'QIMKitVendor/QIMUUID/**/*.{h}'
+      uuid.public_header_files = 'QIMKitVendor/QIMUUID/**/*.{h,m,c}'
       uuid.source_files = ['QIMKitVendor/QIMUUID/**/*.{h,m,c}']
       uuid.dependency 'UICKeyChainStore'
       
@@ -72,14 +73,14 @@ Pod::Spec.new do |s|
   
   s.subspec 'DES' do |des|
       
-      des.public_header_files = 'QIMKitVendor/QIMDES/**/*.{h}'
+      des.public_header_files = 'QIMKitVendor/QIMDES/**/*.{h,m,c}'
       des.source_files = ['QIMKitVendor/QIMDES/**/*.{h,m,c}']
       
   end
   
   s.subspec 'HTTP' do |http|
       
-      http.public_header_files = 'QIMKitVendor/QIMHTTP/**/*.{h}'
+      http.public_header_files = 'QIMKitVendor/QIMHTTP/**/*.{h,m,c}'
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
       http.dependency 'ASIHTTPRequest'
       
@@ -87,7 +88,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'GCD' do |gcd|
     
-    gcd.public_header_files = 'QIMKitVendor/GCD/**/*.{h}'
+    gcd.public_header_files = 'QIMKitVendor/GCD/**/*.{h,m,c}'
     gcd.source_files = ['QIMKitVendor/GCD/**/*.{h,m,c}']
     gcd.requires_arc = false  
   end
