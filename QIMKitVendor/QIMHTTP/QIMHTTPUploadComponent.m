@@ -10,4 +10,12 @@
 
 @implementation QIMHTTPUploadComponent
 
+- (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 @end
