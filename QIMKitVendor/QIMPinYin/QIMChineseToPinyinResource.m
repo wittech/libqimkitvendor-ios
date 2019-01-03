@@ -5,7 +5,7 @@
 //
 
 #include "QIMChineseToPinyinResource.h"
-#import "NSBundle+QIMLibrary.h"
+#import <QIMCommonCategories/QIMCommonCategories.h>
 
 #define LEFT_BRACKET @"("
 #define RIGHT_BRACKET @")"

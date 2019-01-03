@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
   s.name         = "QIMKitVendor"
   s.version      = "1.0.3-beta"
-  s.summary      = "Qunar chat App 6.0+ version QIMKitVendor"
+  s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
                    Qunar QIMKitVendor解决方案
@@ -17,6 +17,9 @@ Pod::Spec.new do |s|
   s.source       = { :git => "http://gitlab.corp.qunar.com/qchat/libQIMKitVendor-iOS.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
 
+  s.xcconfig = {
+    'VALID_ARCHS' =>  'arm64 x86_64',
+  }
   s.subspec 'Audio' do |audio|
     
     audio.source_files = 'QIMKitVendor/Audio/**/*.{h,m,c}', 'QIMKitVendor/Audio/include/**/*.{h,m,c}'
