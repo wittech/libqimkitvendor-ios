@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.0.5-beta"
+  s.version      = "1.0.6-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -93,6 +93,23 @@ Pod::Spec.new do |s|
     gcd.public_header_files = 'QIMKitVendor/GCD/**/*.{h}'
     gcd.source_files = ['QIMKitVendor/GCD/**/*.{h,m,c}']
     gcd.requires_arc = false  
+  end
+  
+  s.subspec 'Fabric' do |fabric|
+      fabric.public_header_files = 'QIMKitVendor/QIMCrashlytics/Fabric/iOS/Fabric.framework/Headers/*h'
+      fabric.source_files = 'QIMKitVendor/QIMCrashlytics/Fabric/iOS/Fabric.framework/Headers/*h'
+      fabric.preserve_paths = 'QIMKitVendor/QIMCrashlytics/Fabric/iOS/Fabric.framework'
+      fabric.vendored_frameworks = 'QIMKitVendor/QIMCrashlytics/Crashlytics/iOS/Crashlytics.framework', 'QIMKitVendor/QIMCrashlytics/Fabric/iOS/Fabric.framework'
+      fabric.requires_arc = true
+      fabric.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(inherited)' }
+  end
+  
+  s.subspec 'Crashlytics' do |crashlytics|
+      crashlytics.source_files = 'QIMKitVendor/QIMCrashlytics/Crashlytics/iOS/Crashlytics.framework/Headers/*h'
+      crashlytics.public_header_files = 'QIMKitVendor/QIMCrashlytics/Crashlytics/iOS/Crashlytics.framework/Headers/*h'
+      crashlytics.vendored_frameworks = 'QIMKitVendor/QIMCrashlytics/Crashlytics/iOS/Crashlytics.framework'
+      crashlytics.frameworks = 'Security', 'SystemConfiguration'
+      crashlytics.libraries = 'z', 'c++'
   end
   
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'

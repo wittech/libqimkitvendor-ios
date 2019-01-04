@@ -7,7 +7,6 @@
 
 #import "QIMZipArchive.h"
 #import "ZipArchive.h"
-#import "QIMPublicRedefineHeader.h"
 
 @implementation QIMZipArchive
 
@@ -32,18 +31,18 @@
         {
             if(![fileManager removeItemAtPath:zipPath error:nil])
             {
-                QIMVerboseLog(@"Delete zip file failure.");
+                NSLog(@"Delete zip file failure.");
             }
         }
     }
     @catch (NSException * exception) {
-        QIMVerboseLog(@"%@",exception);
+        NSLog(@"%@",exception);
     }
     
     //判断需要压缩的文件是否为空
     if(paramFiles == nil || [paramFiles count] == 0)
     {
-        QIMVerboseLog(@"The files want zip is nil.");
+        NSLog(@"The files want zip is nil.");
         return nil;
     }
     
@@ -69,7 +68,7 @@
     //关闭文件
     if([zipArchive CloseZipFile2])
     {
-        QIMVerboseLog(@"Create zip file success.");
+        NSLog(@"Create zip file success.");
         return zipPath;
     }
     return nil;

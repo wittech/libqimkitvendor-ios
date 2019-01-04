@@ -7,7 +7,7 @@
 //
 
 #import "NSString+QIMPinYin4Cocoa.h"
-#import "QIMPublicRedefineHeader.h"
+//#import "QIMPublicRedefineHeader.h"
 
 @implementation NSString (QIMPinYin4Cocoa)
 
@@ -71,7 +71,7 @@
     NSError *error=nil;
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:regex options:options error:&error];
     if (error) {
-        QIMVerboseLog(@"Error creating Regex: %@",[error description]);
+        NSLog(@"Error creating Regex: %@",[error description]);
         return nil;
     }
     
@@ -95,7 +95,7 @@
     NSError *error=nil;
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:regex options:options error:&error];
     if (error) {
-        QIMVerboseLog(@"Error creating Regex: %@",[error description]);
+        NSLog(@"Error creating Regex: %@",[error description]);
         return nil;
     }
     
@@ -126,7 +126,7 @@
     NSError *error=nil;
     NSRegularExpression *pattern = [NSRegularExpression regularExpressionWithPattern:regex options:options error:&error];
     if (error) {
-        QIMVerboseLog(@"Error creating Regex: %@",[error description]);
+        NSLog(@"Error creating Regex: %@",[error description]);
         return NO;  //Can't possibly match an invalid Regex
     }
     

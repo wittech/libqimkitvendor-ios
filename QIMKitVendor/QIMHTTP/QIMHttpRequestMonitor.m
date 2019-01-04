@@ -7,7 +7,7 @@
 //
 
 #import "QIMHttpRequestMonitor.h"
-#import "QIMPublicRedefineHeader.h"
+//#import "QIMPublicRedefineHeader.h"
 
 static const uint8_t thread_count = 4;
 
@@ -47,7 +47,7 @@ static const uint8_t thread_count = 4;
     _requestCount++;
 
     int pos = (int) (_requestCount % thread_count);
-    QIMVerboseLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
+    NSLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
     dispatch_async(_threads[pos], block);
 }
 
@@ -89,7 +89,7 @@ static const uint8_t thread_count = 4;
     } else
         pos = (int) (_requestCount % thread_count);
 
-    QIMVerboseLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
+    NSLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
     dispatch_sync(_threads[pos], block);
 }
 
@@ -132,7 +132,7 @@ static const uint8_t thread_count = 4;
     } else
         pos = (int) (_requestCount % thread_count);
 
-    QIMVerboseLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
+    NSLog(@"request count is %lld, selected the %d threads...", _requestCount, pos);
     dispatch_async(_threads[pos], block);
 }
 

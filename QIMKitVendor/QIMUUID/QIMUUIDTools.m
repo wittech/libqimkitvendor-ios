@@ -8,7 +8,7 @@
 
 #import "QIMUUIDTools.h"
 #import "UICKeyChainStore.h"
-#import "QIMPublicRedefineHeader.h"
+//#import "QIMPublicRedefineHeader.h"
 
 @implementation QIMUUIDTools
 
@@ -22,15 +22,15 @@
         NSString *key = @"deviceIdentifier";
         NSString *deviceUid = [UICKeyChainStore stringForKey:key
                                                      service:service];
-        QIMVerboseLog(@"从KeyChain中取出来的DeviceUid : %@, key : %@, service : %@", deviceUid, key, service);
+        NSLog(@"从KeyChain中取出来的DeviceUid : %@, key : %@, service : %@", deviceUid, key, service);
         if (deviceUid == nil) {
-            QIMVerboseLog(@"从KeyChain中未取到DeviceUid，准备重新生成并写入KeyChain");
+            NSLog(@"从KeyChain中未取到DeviceUid，准备重新生成并写入KeyChain");
             deviceUid = [self UUID];
         }
         
         resultKey = [deviceUid copy];
     }
-    QIMVerboseLog(@"最终使用的deviceUUID : %@", resultKey);
+    NSLog(@"最终使用的deviceUUID : %@", resultKey);
     return resultKey;
 }
 
@@ -48,9 +48,9 @@
     NSString *key = @"deviceIdentifier";
     BOOL success = [UICKeyChainStore setString:deviceUid forKey:key service:service];
     if (success) {
-        QIMVerboseLog(@"向KeyChain中写入DeviceUid 成功 : %@, Key: %@, service : %@", deviceUid, key, service);
+        NSLog(@"向KeyChain中写入DeviceUid 成功 : %@, Key: %@, service : %@", deviceUid, key, service);
     } else {
-        QIMVerboseLog(@"向KeyChain中写入DeviceUid 失败 : %@, Key: %@, service : %@", deviceUid, key, service);
+        NSLog(@"向KeyChain中写入DeviceUid 失败 : %@, Key: %@, service : %@", deviceUid, key, service);
     }
     return success;
 }
@@ -65,7 +65,7 @@
     if (username == nil || [username length] <= 0){
         //删除用户的授权cookie
         [self removeUserAuthCookie];
-        QIMVerboseLog(@"当前userName为空，清空KeyChain中的userName, Key : %@, service : %@", key, service);
+        NSLog(@"当前userName为空，清空KeyChain中的userName, Key : %@, service : %@", key, service);
         return [UICKeyChainStore removeItemForKey:key service:service];
     }
     //获取用户的授权cookie
@@ -73,9 +73,9 @@
     
     BOOL success = [UICKeyChainStore setString:username forKey:key service:service];
     if (success) {
-        QIMVerboseLog(@"向KeyChain中写入UserName成功 : %@, key : %@, service : %@", username, key, service);
+        NSLog(@"向KeyChain中写入UserName成功 : %@, key : %@, service : %@", username, key, service);
     } else {
-        QIMVerboseLog(@"向KeyChain中写入UserName失败 : %@, key : %@, service : %@", username, key, service);
+        NSLog(@"向KeyChain中写入UserName失败 : %@, key : %@, service : %@", username, key, service);
     }
     return success;
 }
@@ -87,7 +87,7 @@
     }
     NSString *key = @"username";
     NSString *loginUserName = [UICKeyChainStore stringForKey:key service:service];
-    QIMVerboseLog(@"从KeyChain中取出的userName : %@, key : %@, service : %@", loginUserName, key, service);
+    NSLog(@"从KeyChain中取出的userName : %@, key : %@, service : %@", loginUserName, key, service);
     return loginUserName;
 }
 
@@ -118,7 +118,7 @@
             [self setTCookie:cookie.value];
         }
     }
-    QIMVerboseLog(@"cookie %@",myCookie.cookies);
+    NSLog(@"cookie %@",myCookie.cookies);
 }
 
 + (void)removeUserAuthCookie
@@ -233,14 +233,14 @@
         service = [[service componentsSeparatedByString:@".shareExtension"] firstObject];
     }
     if (data == nil || [data length] <= 0) {
-        QIMVerboseLog(@"传入的data为空，因此清除之前的数据, Key : %@, service : %@", key, service);
+        NSLog(@"传入的data为空，因此清除之前的数据, Key : %@, service : %@", key, service);
         return [UICKeyChainStore removeItemForKey:key service:service];
     }
     BOOL success = [UICKeyChainStore setData:data forKey:key service:service];
     if (success) {
-        QIMVerboseLog(@"向KeyChain中传入data 成功, Key : %@, service : %@", key, service);
+        NSLog(@"向KeyChain中传入data 成功, Key : %@, service : %@", key, service);
     } else {
-        QIMVerboseLog(@"向KeyChain中传入data 失败, Key : %@, service : %@", key, service);
+        NSLog(@"向KeyChain中传入data 失败, Key : %@, service : %@", key, service);
     }
     return success;
 }
@@ -252,7 +252,7 @@
         service = [[service componentsSeparatedByString:@".shareExtension"] firstObject];
     }
     NSData *data = [UICKeyChainStore dataForKey:key service:service];
-    QIMVerboseLog(@"从KeyChain中取出数据 , key : %@, service : %@", key, service);
+    NSLog(@"从KeyChain中取出数据 , key : %@, service : %@", key, service);
     return data;
 }
 

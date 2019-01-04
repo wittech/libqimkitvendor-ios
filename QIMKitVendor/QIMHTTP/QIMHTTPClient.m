@@ -12,7 +12,7 @@
 #import "ASIFormDataRequest.h"
 #import "QIMJSONSerializer.h"
 #import "QIMWatchDog.h"
-#import "QIMPublicRedefineHeader.h"
+//#import "QIMPublicRedefineHeader.h"
 
 static NSString *baseUrl = nil;
 
@@ -70,7 +70,7 @@ static NSString *baseUrl = nil;
     } else {
         if (request.HTTPBody) {
             id bodyStr = [[QIMJSONSerializer sharedInstance] deserializeObject:request.HTTPBody error:nil];
-            QIMVerboseLog(@"QIMHTTPRequest请求Url : %@, Body :%@,", request.url, bodyStr);
+            NSLog(@"QIMHTTPRequest请求Url : %@, Body :%@,", request.url, bodyStr);
             [asiRequest setPostBody:[NSMutableData dataWithData:request.HTTPBody]];
         }
     }
@@ -85,14 +85,14 @@ static NSString *baseUrl = nil;
         }
     }
     [self configureASIRequest:asiRequest QIMHTTPRequest:request complete:completeHandler failure:failureHandler];
-    QIMVerboseLog(@"startSynchronous获取当前线程1 :%@, %@",dispatch_get_current_queue(),  request.url);
+    NSLog(@"startSynchronous获取当前线程1 :%@, %@",dispatch_get_current_queue(),  request.url);
     [[QIMWatchDog sharedInstance] start];
     if (request.shouldASynchronous) {
         [asiRequest startAsynchronous];
     } else {
         [asiRequest startSynchronous];
     }
-    QIMVerboseLog(@"startSynchronous获取当前线程2 :%@,  %@, %lf", dispatch_get_current_queue(), request.url, [[QIMWatchDog sharedInstance] escapedTime]);
+    NSLog(@"startSynchronous获取当前线程2 :%@,  %@, %lf", dispatch_get_current_queue(), request.url, [[QIMWatchDog sharedInstance] escapedTime]);
 }
 
 + (void)configureASIRequest:(ASIHTTPRequest *)asiRequest
@@ -122,7 +122,7 @@ static NSString *baseUrl = nil;
         response.code = strongAsiRequest.responseStatusCode;
         response.data = strongAsiRequest.responseData;
         response.responseString = strongAsiRequest.responseString;
-        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", weakAsiRequest.url, weakAsiRequest.requestHeaders, response);
+        NSLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", weakAsiRequest.url, weakAsiRequest.requestHeaders, response);
         if (completeHandler) {
             completeHandler(response);
         }
@@ -130,7 +130,7 @@ static NSString *baseUrl = nil;
     [asiRequest setFailedBlock:^{
         __strong typeof(weakAsiRequest) strongAsiRequest = weakAsiRequest;
         if (failureHandler) {
-            QIMVerboseLog(@"Error : %@", strongAsiRequest.error);
+            NSLog(@"Error : %@", strongAsiRequest.error);
             failureHandler(strongAsiRequest.error);
         }
     }];

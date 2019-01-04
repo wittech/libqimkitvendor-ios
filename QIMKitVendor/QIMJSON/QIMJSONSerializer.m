@@ -8,7 +8,7 @@
 
 #import "QIMJSONSerializer.h"
 #import "NSJSONSerialization+QIMRemovingNulls.h"
-#import "QIMPublicRedefineHeader.h"
+//#import "QIMPublicRedefineHeader.h"
 
 @implementation QIMJSONSerializer
 
@@ -31,7 +31,7 @@
                                                          error:outError];
         }
         @catch (NSException * exception) {
-            QIMVerboseLog(@"serializeObject [ %@ ] Exception %@", inObject, exception);
+            NSLog(@"serializeObject [ %@ ] Exception %@", inObject, exception);
         }
         @finally {
             
@@ -61,7 +61,7 @@
         outObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     }
     @catch (NSException *exception) {
-        QIMVerboseLog(@"deserializeObject [ %@ ] Exception%@", inObject, exception);
+        NSLog(@"deserializeObject [ %@ ] Exception%@", inObject, exception);
         outObject = @{};
     }
     @finally {
@@ -70,7 +70,7 @@
     if (error == nil) {
         
     } else {
-        QIMVerboseLog(@"deserializeObject [ %@ ] Error : %@", inObject, error);
+        NSLog(@"deserializeObject [ %@ ] Error : %@", inObject, error);
     }
     
     return outObject;

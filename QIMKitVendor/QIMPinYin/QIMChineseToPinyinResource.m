@@ -5,7 +5,7 @@
 //
 
 #include "QIMChineseToPinyinResource.h"
-#import <QIMCommonCategories/QIMCommonCategories.h>
+#include "QIMCommonCategories.h"
 
 #define LEFT_BRACKET @"("
 #define RIGHT_BRACKET @")"
