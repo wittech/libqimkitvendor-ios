@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.0.4-beta"
+  s.version      = "1.0.7-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -114,5 +114,7 @@ Pod::Spec.new do |s|
   
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
   s.dependency 'ZipArchive'
-  
+  s.dependency 'QIMCommonCategories', '~> 1.0.1-beta'
+  s.dependency 'QIMPublicRedefineHeader', '~> 0.0.2-beta'  
+
 end
