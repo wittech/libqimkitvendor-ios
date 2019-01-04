@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.0-beta"
+  s.version      = "1.1.2-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -20,6 +20,7 @@ Pod::Spec.new do |s|
   s.xcconfig = {
     'VALID_ARCHS' =>  'arm64 x86_64',
   }
+  $debug = ENV['debug']
   s.subspec 'Audio' do |audio|
     
     audio.source_files = 'QIMKitVendor/Audio/**/*.{h,m,c}', 'QIMKitVendor/Audio/include/**/*.{h,m,c}'
@@ -98,8 +99,17 @@ Pod::Spec.new do |s|
   end
   
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
-  s.dependency 'ZipArchive'
-  s.dependency 'QIMCommonCategories', '~> 1.0.1-beta'
-  s.dependency 'QIMPublicRedefineHeader', '~> 0.0.2-beta'  
+  
+  if $debug
+    puts 'debug QIMKitVendor依赖第三方库'
 
+  else
+
+    puts '线上release QIMKitVendor依赖第三方库'
+    s.dependency 'QIMCommonCategories', '~> 1.0.1-beta'
+    s.dependency 'QIMPublicRedefineHeader', '~> 0.0.2-beta'
+  end
+  
+  s.dependency 'ZipArchive'
+  
 end
