@@ -86,6 +86,7 @@ Pod::Spec.new do |s|
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
       http.dependency 'ASIHTTPRequest'
       http.dependency 'QIMKitVendor/JSON'
+      http.dependency 'QIMKitVendor/DOG'
       
   end
 
