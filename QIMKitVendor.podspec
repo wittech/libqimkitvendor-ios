@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.0.7-beta"
+  s.version      = "1.0.8-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -85,6 +85,7 @@ Pod::Spec.new do |s|
       http.public_header_files = 'QIMKitVendor/QIMHTTP/**/*.{h}'
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
       http.dependency 'ASIHTTPRequest'
+      http.dependency 'QIMKitVendor/JSON'
       
   end
 
