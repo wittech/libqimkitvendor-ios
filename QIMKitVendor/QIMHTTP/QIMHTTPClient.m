@@ -100,7 +100,7 @@ static NSString *baseUrl = nil;
                    complete:(QIMCompleteHandler)completeHandler
                     failure:(QIMFailureHandler)failureHandler {
     [asiRequest setNumberOfTimesToRetryOnTimeout:2];
-    [asiRequest setValidatesSecureCertificate:request.validatesSecureCertificate];
+    [asiRequest setValidatesSecureCertificate:asiRequest.validatesSecureCertificate];
     [asiRequest setTimeOutSeconds:request.timeoutInterval];
     [asiRequest setAllowResumeForFileDownloads:YES];
     if (request.HTTPRequestHeaders) {

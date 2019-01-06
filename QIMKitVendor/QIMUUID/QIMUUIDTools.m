@@ -161,6 +161,14 @@
 
 #pragma mark - RequestURL & RequestDomain
 
++ (BOOL) setRequestFileURL:(NSData *)requestFileUrl {
+    return [self setData:requestFileUrl forKey:@"requestFileUrl"];
+}
+
++ (NSData *)getRequestFileUrl {
+    return [QIMUUIDTools dataForKey:@"requestFileUrl"];
+}
+
 + (BOOL) setRequestURL:(NSData *)requestUrl {
     return [self setData:requestUrl forKey:@"requestUrl"];
 }

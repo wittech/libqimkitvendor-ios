@@ -34,6 +34,21 @@
 #pragma mark - RequestURL & RequestDomain
 
 /**
+ 设置请求文件服务头
+ 
+ @param requestFileUrl 请求文件服务地址
+ @return YES成功，NO失败
+ */
++ (BOOL) setRequestFileURL:(NSData *)requestFileUrl;
+
+/**
+ 获取文件服务头
+ 
+ @return requestUrl
+ */
++ (NSData *)getRequestFileUrl;
+
+/**
  设置请求Url头
  
  @param requestUrl 请求Domain
