@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.3-beta"
+  s.version      = "1.1.4-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -21,6 +21,11 @@ Pod::Spec.new do |s|
     'VALID_ARCHS' =>  'arm64 x86_64',
   }
   $debug = ENV['debug']
+  
+  s.subspec 'Helper' do |helper|
+    helper.source_files = 'QIMKitVendor/QIMHelper/**/*.{h,m,c}'
+  end
+
   s.subspec 'Audio' do |audio|
     
     audio.source_files = 'QIMKitVendor/Audio/**/*.{h,m,c}', 'QIMKitVendor/Audio/include/**/*.{h,m,c}'
