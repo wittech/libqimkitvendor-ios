@@ -25,6 +25,23 @@
     return monitor;
 }
 
+- (CFAbsoluteTime)startTime {
+    return CFAbsoluteTimeGetCurrent();
+}
+
+- (CFAbsoluteTime)escapedTimewithStartTime:(CFAbsoluteTime)startTime {
+    CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
+    return endTime - startTime;
+}
+
+- (CFAbsoluteTime)endTime {
+    return CFAbsoluteTimeGetCurrent();
+}
+
+- (double)escapedTimewithStartTime:(CFAbsoluteTime)startTime withEndTime:(CFAbsoluteTime)endTime {
+    return endTime - startTime;
+}
+
 - (void) start {
     _start = CFAbsoluteTimeGetCurrent();
 }
