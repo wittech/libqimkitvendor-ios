@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.5-beta"
+  s.version      = "1.1.5"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.homepage     = "http://www.qunar.com"
   s.license      = "Copyright 2015 Qunar.com"
   s.author        = { "qunar mobile" => "QIMKitVendor@qunar.com" }
-  s.source       = { :git => "", :tag=> s.version.to_s}
+  s.source       = { :git => "https://github.com/qunarcorp/libqimkitvendor-ios.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
 
   s.xcconfig = {
@@ -110,8 +110,8 @@ Pod::Spec.new do |s|
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
-    s.dependency 'QIMCommonCategories', '~> 1.0.1-beta'
-    s.dependency 'QIMPublicRedefineHeader', '~> 0.0.2-beta'
+    s.dependency 'QIMCommonCategories'
+    s.dependency 'QIMPublicRedefineHeader'
   end
   
   s.dependency 'ZipArchive'
