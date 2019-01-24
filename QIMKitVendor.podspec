@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.8-beta"
+  s.version      = "1.1.10-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -21,10 +21,14 @@ Pod::Spec.new do |s|
     'VALID_ARCHS' =>  'arm64 x86_64',
   }
   $debug = ENV['debug']
+ 
+  s.subspec 'PublicRedefineHeader' do |prHeader|
+      s.source_files = "QIMKitVendor/QIMPublicRedefineHeader/QIMPublicRedefineHeader.h"    
+  end
 
-  s.source_files = "QIMKitVendor/QIMPublicRedefineHeader.h"  
   s.subspec 'Helper' do |helper|
     helper.source_files = 'QIMKitVendor/QIMHelper/**/*.{h,m,c}'
+    helper.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
 
   s.subspec 'Audio' do |audio|
@@ -34,6 +38,7 @@ Pod::Spec.new do |s|
                                 'QIMKitVendor/Audio/opencore-amr/lib/libopencore-amrwb.a']
     audio.requires_arc = false
     audio.xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'QIMAudioEnable=1'}
+    audio.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'ZBar' do |zbar|
@@ -42,13 +47,14 @@ Pod::Spec.new do |s|
       zbar.pod_target_xcconfig = {"HEADER_SEARCH_PATHS" => "\"${PODS_ROOT}/Headers/Private/**\" \"${PODS_ROOT}/Headers/Private/QIMKitVendor/**\" \"${PODS_ROOT}/Headers/Public/QIMKitVendor/**\" \"${PODS_ROOT}/Headers/Public/QIMKitVendor/**\""}
       zbar.frameworks = 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreVideo', 'QuartzCore'
       zbar.libraries = 'iconv'
+      zbar.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'Zip' do |zip|
 
       zip.xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'QIMZipEnable=1'}
       zip.source_files = ['QIMKitVendor/QIMZipArchive/**/*{h,m,c}']
-      
+      zip.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
 
   s.subspec 'PinYin' do |pinyin|
@@ -56,20 +62,21 @@ Pod::Spec.new do |s|
     pinyin.xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'QIMPinYinEnable=1'}
     pinyin.source_files = ['QIMKitVendor/QIMPinYin/**/*{h,m,c}']
     pinyin.resource_bundles = {'QIMPinYin' => ['QIMKitVendor/QIMPinYin/unicode_to_hanyu_qim_pinyin.txt']}
+    pinyin.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'JSON' do |json|
       
       json.public_header_files = 'QIMKitVendor/QIMJSON/**/*.{h}'
       json.source_files = ['QIMKitVendor/QIMJSON/**/*.{h,m,c}']
-      
+      json.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'DOG' do |dog|
       
       dog.public_header_files = 'QIMKitVendor/QIMWatchDog/**/*.{h}'
       dog.source_files = ['QIMKitVendor/QIMWatchDog/**/*.{h,m,c}']
-      
+      dog.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'UUID' do |uuid|
@@ -77,14 +84,14 @@ Pod::Spec.new do |s|
       uuid.public_header_files = 'QIMKitVendor/QIMUUID/**/*.{h}'
       uuid.source_files = ['QIMKitVendor/QIMUUID/**/*.{h,m,c}']
       uuid.dependency 'UICKeyChainStore'
-      
+      uuid.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'DES' do |des|
       
       des.public_header_files = 'QIMKitVendor/QIMDES/**/*.{h}'
       des.source_files = ['QIMKitVendor/QIMDES/**/*.{h,m,c}']
-      
+      des.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.subspec 'HTTP' do |http|
@@ -94,7 +101,7 @@ Pod::Spec.new do |s|
       http.dependency 'ASIHTTPRequest'
       http.dependency 'QIMKitVendor/JSON'
       http.dependency 'QIMKitVendor/DOG'
-      
+      http.dependency 'QIMKitVendor/PublicRedefineHeader'      
   end
 
   s.subspec 'GCD' do |gcd|
@@ -102,6 +109,7 @@ Pod::Spec.new do |s|
     gcd.public_header_files = 'QIMKitVendor/GCD/**/*.{h}'
     gcd.source_files = ['QIMKitVendor/GCD/**/*.{h,m,c}']
     gcd.requires_arc = false  
+    gcd.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
   
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
