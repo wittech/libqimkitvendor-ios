@@ -7,7 +7,7 @@
 
 #import "QIMZipArchive.h"
 #import "ZipArchive.h"
-#import "QIMPublicRedefineHeader.h"
+#import "QIMKitVendor.h"
 
 @implementation QIMZipArchive
 

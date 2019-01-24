@@ -12,7 +12,7 @@
 #import "ASIFormDataRequest.h"
 #import "QIMJSONSerializer.h"
 #import "QIMWatchDog.h"
-#import "QIMPublicRedefineHeader.h"
+#import "QIMKitVendor.h"
 
 static NSString *baseUrl = nil;
 

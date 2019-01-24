@@ -7,7 +7,7 @@
 //
 
 #import "QIMHttpRequestMonitor.h"
-#import "QIMPublicRedefineHeader.h"
+#import "QIMKitVendor.h"
 
 static const uint8_t thread_count = 4;
 

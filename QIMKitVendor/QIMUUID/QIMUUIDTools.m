@@ -8,7 +8,7 @@
 
 #import "QIMUUIDTools.h"
 #import "UICKeyChainStore.h"
-#import "QIMPublicRedefineHeader.h"
+#import "QIMKitVendor.h"
 
 @implementation QIMUUIDTools
 
