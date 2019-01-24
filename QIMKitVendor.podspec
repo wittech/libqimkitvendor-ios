@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.10-beta"
+  s.version      = "1.1.11-beta"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   $debug = ENV['debug']
  
   s.subspec 'PublicRedefineHeader' do |prHeader|
-      s.source_files = "QIMKitVendor/QIMPublicRedefineHeader/QIMPublicRedefineHeader.h"    
+      prHeader.source_files = "QIMKitVendor/QIMPublicRedefineHeader/QIMPublicRedefineHeader.h"    
   end
 
   s.subspec 'Helper' do |helper|
