@@ -86,13 +86,13 @@ static NSString *baseUrl = nil;
     }
     [self configureASIRequest:asiRequest QIMHTTPRequest:request complete:completeHandler failure:failureHandler];
     QIMVerboseLog(@"startSynchronous获取当前线程1 :%@, %@",dispatch_get_current_queue(),  request.url);
-    [[QIMWatchDog sharedInstance] start];
+    CFAbsoluteTime startTime = [[QIMWatchDog sharedInstance] startTime];
     if (request.shouldASynchronous) {
         [asiRequest startAsynchronous];
     } else {
         [asiRequest startSynchronous];
     }
-    QIMVerboseLog(@"startSynchronous获取当前线程2 :%@,  %@, %lf", dispatch_get_current_queue(), request.url, [[QIMWatchDog sharedInstance] escapedTime]);
+    QIMVerboseLog(@"startSynchronous获取当前线程2 :%@,  %@, %lf", dispatch_get_current_queue(), request.url, [[QIMWatchDog sharedInstance] escapedTimewithStartTime:startTime]);
 }
 
 + (void)configureASIRequest:(ASIHTTPRequest *)asiRequest

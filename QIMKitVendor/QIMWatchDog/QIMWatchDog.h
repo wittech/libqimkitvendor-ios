@@ -12,8 +12,16 @@
 
 + (instancetype) sharedInstance;
 
-- (void)start;
+- (CFAbsoluteTime)startTime;
 
-- (NSTimeInterval) escapedTime;
+- (CFAbsoluteTime)escapedTimewithStartTime:(CFAbsoluteTime)startTime;
+
+- (CFAbsoluteTime)endTime;
+
+//- (double)escapedTimewithStartTime:(CFAbsoluteTime)startTime withEndTime:(CFAbsoluteTime)endTime;
+
+//- (void)start;
+
+//- (NSTimeInterval) escapedTime;
 
 @end

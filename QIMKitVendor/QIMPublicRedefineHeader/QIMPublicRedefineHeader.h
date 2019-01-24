@@ -1,20 +1,14 @@
 //
-//  QIMKitVendor.h
-//  QIMKitVendor
+//  QIMPublicRedefineHeader.h
+//  QIMPublicRedefineHeader
 //
-//  Created by 李露 on 2018/4/25.
-//  Copyright © 2018年 QIM. All rights reserved.
+//  Created by 李露 on 11/8/18.
+//  Copyright © 2018 QIM. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#ifndef QIMPublicRedefineHeader_h
+#define QIMPublicRedefineHeader_h
 
-//! Project version number for QIMKitVendor.
-FOUNDATION_EXPORT double QIMKitVendorVersionNumber;
-
-//! Project version string for QIMKitVendor.
-FOUNDATION_EXPORT const unsigned char QIMKitVendorVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <QIMKitVendor/PublicHeader.h>
 #import "CocoaLumberjack.h"
 
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -25,3 +19,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #define QIMInfoLog(frmt, ...) DDLogInfo(frmt, ##__VA_ARGS__)//信息为蓝白
 #define QIMDebugLog(frmt, ...) DDLogDebug(frmt, ##__VA_ARGS__)//调试为白黑
 #define QIMVerboseLog(frmt, ...) DDLogVerbose(frmt, ##__VA_ARGS__)//版本信息为橙色
+
+#endif /* QIMPublicRedefineHeader_h */
