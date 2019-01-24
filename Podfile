@@ -13,6 +13,6 @@ target 'QIMKitVendor' do
   pod 'ASIHTTPRequest'
   pod 'CocoaLumberjack'
   pod 'QIMCommonCategories', '~> 1.0.0-beta'
-  pod 'QIMPublicRedefineHeader', '~> 0.0.2-beta'
+#  pod 'QIMPublicRedefineHeader', '~> 0.0.2-beta'
 
 end

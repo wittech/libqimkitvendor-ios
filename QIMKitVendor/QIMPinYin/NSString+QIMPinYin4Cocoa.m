@@ -7,7 +7,7 @@
 //
 
 #import "NSString+QIMPinYin4Cocoa.h"
-#import "QIMKitVendor.h"
+#import "QIMPublicRedefineHeader.h"
 
 @implementation NSString (QIMPinYin4Cocoa)
 

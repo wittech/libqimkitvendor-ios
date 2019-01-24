@@ -8,7 +8,7 @@
 
 #import "QIMJSONSerializer.h"
 #import "NSJSONSerialization+QIMRemovingNulls.h"
-#import "QIMKitVendor.h"
+#import "QIMPublicRedefineHeader.h"
 
 @implementation QIMJSONSerializer
 
