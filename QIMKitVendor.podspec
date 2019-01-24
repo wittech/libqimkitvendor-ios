@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.5"
+  s.version      = "1.1.6"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -16,9 +16,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/qunarcorp/libqimkitvendor-ios.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
 
-  s.xcconfig = {
-    'VALID_ARCHS' =>  'arm64 x86_64',
-  }
   $debug = ENV['debug']
   
   s.subspec 'Helper' do |helper|
@@ -111,9 +108,9 @@ Pod::Spec.new do |s|
 
     puts '线上release QIMKitVendor依赖第三方库'
     s.dependency 'QIMCommonCategories'
-    s.dependency 'QIMPublicRedefineHeader'
   end
   
   s.dependency 'ZipArchive'
+  s.dependency 'CocoaLumberjack'
   
 end
