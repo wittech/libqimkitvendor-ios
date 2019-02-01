@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "1.1.7"
+  s.version      = "2.0.0"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -17,9 +17,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/qunarcorp/libqimkitvendor-ios.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
 
-  s.xcconfig = {
-    'VALID_ARCHS' =>  'arm64 x86_64',
-  }
   $debug = ENV['debug']
  
   s.subspec 'PublicRedefineHeader' do |prHeader|
