@@ -9,7 +9,7 @@
 #ifndef QIMPublicRedefineHeader_h
 #define QIMPublicRedefineHeader_h
 
-#if defined (QIMLogEnable) && QIMLogEnable == 1
+#if __has_include("QIMLocalLog.h")
 
     #import "CocoaLumberjack.h"
 
