@@ -13,7 +13,7 @@
 
     #import "CocoaLumberjack.h"
 
-    static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+    static const DDLogLevel ddLogLevel = DDLogLevelAll;
     //是否开启日志，根据项目配置来
     #define NSLog(frmt, ...) DDLogVerbose(frmt, ##__VA_ARGS__)//版本信息为橙色
     #define QIMErrorLog(frmt, ...) DDLogError(frmt, ##__VA_ARGS__)//错误信息为红白
