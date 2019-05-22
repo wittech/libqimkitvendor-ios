@@ -169,6 +169,14 @@
     return [QIMUUIDTools dataForKey:@"requestFileUrl"];
 }
 
++ (BOOL) setNewHttpRequestURL:(NSData *)requestUrl {
+    return [self setData:requestUrl forKey:@"NewHttpUrl"];
+}
+
++ (NSData *)getNewHttpRequestUrl {
+    return [QIMUUIDTools dataForKey:@"NewHttpUrl"];
+}
+
 + (BOOL) setRequestURL:(NSData *)requestUrl {
     return [self setData:requestUrl forKey:@"requestUrl"];
 }

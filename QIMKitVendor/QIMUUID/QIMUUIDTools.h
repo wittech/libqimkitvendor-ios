@@ -49,6 +49,21 @@
 + (NSData *)getRequestFileUrl;
 
 /**
+ 设置请求NewHttpUrl头
+ 
+ @param requestUrl 请求Domain
+ @return YES成功，NO失败
+ */
++ (BOOL) setNewHttpRequestURL:(NSData *)requestUrl;
+
+/**
+ 获取请求URL
+ 
+ @return NewHttpUrl
+ */
++ (NSData *)getNewHttpRequestUrl;
+
+/**
  设置请求Url头
  
  @param requestUrl 请求Domain
