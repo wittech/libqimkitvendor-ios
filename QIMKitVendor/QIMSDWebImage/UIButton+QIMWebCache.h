@@ -12,19 +12,19 @@
 /**
  * Integrates QIMSDWebImage async downloading and caching of remote images with UIButtonView.
  */
-@interface UIButton (WebCache)
+@interface UIButton (QIMWebCache)
 
 /**
  * Get the current image URL.
  */
-- (NSURL *)sd_currentImageURL;
+- (NSURL *)qimsd_currentImageURL;
 
 /**
  * Get the image URL for a control state.
  * 
  * @param state Which state you want to know the URL for. The values are described in UIControlState.
  */
-- (NSURL *)sd_imageURLForState:(UIControlState)state;
+- (NSURL *)qimsd_imageURLForState:(UIControlState)state;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -34,7 +34,7 @@
  * @param url   The url for the image.
  * @param state The state that uses the specified title. The values are described in UIControlState.
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state;
 
 /**
  * Set the imageView `image` with an `url` and a placeholder.
@@ -44,9 +44,9 @@
  * @param url         The url for the image.
  * @param state       The state that uses the specified title. The values are described in UIControlState.
  * @param placeholder The image to be set initially, until the image request finishes.
- * @see sd_setImageWithURL:placeholderImage:options:
+ * @see qimsd_setImageWithURL:placeholderImage:options:
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -58,7 +58,7 @@
  * @param placeholder The image to be set initially, until the image request finishes.
  * @param options     The options to use when downloading the image. @see QIMSDWebImageOptions for the possible values.
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -73,7 +73,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder.
@@ -89,7 +89,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -106,7 +106,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the backgroundImageView `image` with an `url`.
@@ -116,7 +116,7 @@
  * @param url   The url for the image.
  * @param state The state that uses the specified title. The values are described in UIControlState.
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state;
 
 /**
  * Set the backgroundImageView `image` with an `url` and a placeholder.
@@ -126,9 +126,9 @@
  * @param url         The url for the image.
  * @param state       The state that uses the specified title. The values are described in UIControlState.
  * @param placeholder The image to be set initially, until the image request finishes.
- * @see sd_setImageWithURL:placeholderImage:options:
+ * @see qimsd_setImageWithURL:placeholderImage:options:
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder;
 
 /**
  * Set the backgroundImageView `image` with an `url`, placeholder and custom options.
@@ -140,7 +140,7 @@
  * @param placeholder The image to be set initially, until the image request finishes.
  * @param options     The options to use when downloading the image. @see QIMSDWebImageOptions for the possible values.
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
 
 /**
  * Set the backgroundImageView `image` with an `url`.
@@ -155,7 +155,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the backgroundImageView `image` with an `url`, placeholder.
@@ -171,7 +171,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the backgroundImageView `image` with an `url`, placeholder and custom options.
@@ -187,43 +187,43 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Cancel the current image download
  */
-- (void)sd_cancelImageLoadForState:(UIControlState)state;
+- (void)qimsd_cancelImageLoadForState:(UIControlState)state;
 
 /**
  * Cancel the current backgroundImage download
  */
-- (void)sd_cancelBackgroundImageLoadForState:(UIControlState)state;
+- (void)qimsd_cancelBackgroundImageLoadForState:(UIControlState)state;
 
 @end
 
 
 @interface UIButton (WebCacheDeprecated)
 
-- (NSURL *)currentImageURL __deprecated_msg("Use `sd_currentImageURL`");
-- (NSURL *)imageURLForState:(UIControlState)state __deprecated_msg("Use `sd_imageURLForState:`");
+- (NSURL *)currentImageURL __deprecated_msg("Use `qimsd_currentImageURL`");
+- (NSURL *)imageURLForState:(UIControlState)state __deprecated_msg("Use `qimsd_imageURLForState:`");
 
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:`");
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:placeholderImage:`");
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:placeholderImage:options:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:placeholderImage:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:placeholderImage:options:`");
 
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:completed:`");
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:placeholderImage:completed:`");
-- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:forState:placeholderImage:options:completed:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:completed:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:placeholderImage:completed:`");
+- (void)setImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:forState:placeholderImage:options:completed:`");
 
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:`");
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:placeholderImage:`");
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:placeholderImage:options:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:placeholderImage:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:placeholderImage:options:`");
 
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:completed:`");
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:placeholderImage:completed:`");
-- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setBackgroundImageWithURL:forState:placeholderImage:options:completed:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:completed:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:placeholderImage:completed:`");
+- (void)setBackgroundImageWithURL:(NSURL *)url forState:(UIControlState)state placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setBackgroundImageWithURL:forState:placeholderImage:options:completed:`");
 
-- (void)cancelCurrentImageLoad __deprecated_msg("Use `sd_cancelImageLoadForState:`");
-- (void)cancelBackgroundImageLoadForState:(UIControlState)state __deprecated_msg("Use `sd_cancelBackgroundImageLoadForState:`");
+- (void)cancelCurrentImageLoad __deprecated_msg("Use `qimsd_cancelImageLoadForState:`");
+- (void)cancelBackgroundImageLoadForState:(UIControlState)state __deprecated_msg("Use `qimsd_cancelBackgroundImageLoadForState:`");
 
 @end

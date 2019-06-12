@@ -1,5 +1,5 @@
 //
-//  UIImage+MultiFormat.h
+//  UIImage+QIMMultiFormat.h
 //  QIMSDWebImage
 //
 //  Created by Olivier Poitrey on 07/06/13.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (MultiFormat)
+@interface UIImage (QIMMultiFormat)
 
-+ (UIImage *)sd_imageWithData:(NSData *)data gifFlag:(BOOL)gifFlag;
++ (UIImage *)qimsd_imageWithData:(NSData *)data gifFlag:(BOOL)gifFlag;
 
 @end

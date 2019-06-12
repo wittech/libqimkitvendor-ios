@@ -6,31 +6,31 @@
  * file that was distributed with this source code.
  */
 
-#import "UIImageView+HighlightedWebCache.h"
-#import "UIView+WebCacheOperation.h"
+#import "UIImageView+QIMHighlightedWebCache.h"
+#import "UIView+QIMWebCacheOperation.h"
 
 #define UIImageViewHighlightedWebCacheOperationKey @"highlightedImage"
 
 @implementation UIImageView (HighlightedWebCache)
 
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url {
-    [self sd_setHighlightedImageWithURL:url options:0 progress:nil completed:nil];
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url {
+    [self qimsd_setHighlightedImageWithURL:url options:0 progress:nil completed:nil];
 }
 
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options {
-    [self sd_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options {
+    [self qimsd_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
 }
 
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setHighlightedImageWithURL:url options:0 progress:nil completed:completedBlock];
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setHighlightedImageWithURL:url options:0 progress:nil completed:completedBlock];
 }
 
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setHighlightedImageWithURL:url options:options progress:nil completed:completedBlock];
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setHighlightedImageWithURL:url options:options progress:nil completed:completedBlock];
 }
 
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_cancelCurrentHighlightedImageLoad];
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_cancelCurrentHighlightedImageLoad];
 
     if (url) {
         __weak __typeof(self)wself = self;
@@ -53,7 +53,7 @@
                                          }
                                      });
         }];
-        [self sd_setImageLoadOperation:operation forKey:UIImageViewHighlightedWebCacheOperationKey];
+        [self qimsd_setImageLoadOperation:operation forKey:UIImageViewHighlightedWebCacheOperationKey];
     } else {
         dispatch_main_async_safe(^{
             NSError *error = [NSError errorWithDomain:QIMSDWebImageErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey : @"Trying to load a nil url"}];
@@ -64,8 +64,8 @@
     }
 }
 
-- (void)sd_cancelCurrentHighlightedImageLoad {
-    [self sd_cancelImageLoadOperationWithKey:UIImageViewHighlightedWebCacheOperationKey];
+- (void)qimsd_cancelCurrentHighlightedImageLoad {
+    [self qimsd_cancelImageLoadOperationWithKey:UIImageViewHighlightedWebCacheOperationKey];
 }
 
 @end
@@ -74,15 +74,15 @@
 @implementation UIImageView (HighlightedWebCacheDeprecated)
 
 - (void)setHighlightedImageWithURL:(NSURL *)url {
-    [self sd_setHighlightedImageWithURL:url options:0 progress:nil completed:nil];
+    [self qimsd_setHighlightedImageWithURL:url options:0 progress:nil completed:nil];
 }
 
 - (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options {
-    [self sd_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
+    [self qimsd_setHighlightedImageWithURL:url options:options progress:nil completed:nil];
 }
 
 - (void)setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setHighlightedImageWithURL:url options:0 progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+    [self qimsd_setHighlightedImageWithURL:url options:0 progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
@@ -90,7 +90,7 @@
 }
 
 - (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setHighlightedImageWithURL:url options:options progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+    [self qimsd_setHighlightedImageWithURL:url options:options progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
@@ -98,7 +98,7 @@
 }
 
 - (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setHighlightedImageWithURL:url options:0 progress:progressBlock completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+    [self qimsd_setHighlightedImageWithURL:url options:0 progress:progressBlock completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
@@ -106,7 +106,7 @@
 }
 
 - (void)cancelCurrentHighlightedImageLoad {
-    [self sd_cancelCurrentHighlightedImageLoad];
+    [self qimsd_cancelCurrentHighlightedImageLoad];
 }
 
 @end

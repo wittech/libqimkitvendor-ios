@@ -1,17 +1,17 @@
 //
-//  UIImage+GIF.m
+//  UIImage+QIMGIF.m
 //  LBGIFImage
 //
 //  Created by Laurin Brandner on 06.01.12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "UIImage+GIF.h"
+#import "UIImage+QIMGIF.h"
 #import <ImageIO/ImageIO.h>
 
-@implementation UIImage (GIF)
+@implementation UIImage (QIMGIF)
 
-+ (UIImage *)sd_animatedGIFWithData:(NSData *)data {
++ (UIImage *)qimsd_animatedGIFWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
@@ -36,7 +36,7 @@
                 continue;
             }
 
-            duration += [self sd_frameDurationAtIndex:i source:source];
+            duration += [self qimsd_frameDurationAtIndex:i source:source];
 
             [images addObject:[UIImage imageWithCGImage:image scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp]];
 
@@ -55,7 +55,7 @@
     return animatedImage;
 }
 
-+ (UIImage *)sd_animatedGIFWithData:(NSData *)data gifFlag:(BOOL)gifFlag {
++ (UIImage *)qimsd_animatedGIFWithData:(NSData *)data gifFlag:(BOOL)gifFlag {
     if (!data) {
         return nil;
     }
@@ -84,7 +84,7 @@
                     continue;
                 }
                 
-                duration += [self sd_frameDurationAtIndex:i source:source];
+                duration += [self qimsd_frameDurationAtIndex:i source:source];
                 
                 [images addObject:[UIImage imageWithCGImage:image scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp]];
                 
@@ -103,7 +103,7 @@
     return animatedImage;
 }
 
-+ (float)sd_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
++ (float)qimsd_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
     float frameDuration = 0.1f;
     CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
     NSDictionary *frameProperties = (__bridge NSDictionary *)cfFrameProperties;
@@ -134,7 +134,7 @@
     return frameDuration;
 }
 
-+ (UIImage *)sd_animatedGIFNamed:(NSString *)name {
++ (UIImage *)qimsd_animatedGIFNamed:(NSString *)name {
     CGFloat scale = [UIScreen mainScreen].scale;
 
     if (scale > 1.0f) {
@@ -143,7 +143,7 @@
         NSData *data = [NSData dataWithContentsOfFile:retinaPath];
 
         if (data) {
-            return [UIImage sd_animatedGIFWithData:data];
+            return [UIImage qimsd_animatedGIFWithData:data];
         }
 
         NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
@@ -151,7 +151,7 @@
         data = [NSData dataWithContentsOfFile:path];
 
         if (data) {
-            return [UIImage sd_animatedGIFWithData:data];
+            return [UIImage qimsd_animatedGIFWithData:data];
         }
 
         return [UIImage imageNamed:name];
@@ -162,14 +162,14 @@
         NSData *data = [NSData dataWithContentsOfFile:path];
 
         if (data) {
-            return [UIImage sd_animatedGIFWithData:data];
+            return [UIImage qimsd_animatedGIFWithData:data];
         }
 
         return [UIImage imageNamed:name];
     }
 }
 
-- (UIImage *)sd_animatedImageByScalingAndCroppingToSize:(CGSize)size {
+- (UIImage *)qimsd_animatedImageByScalingAndCroppingToSize:(CGSize)size {
     if (CGSizeEqualToSize(self.size, size) || CGSizeEqualToSize(size, CGSizeZero)) {
         return self;
     }

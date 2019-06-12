@@ -8,7 +8,7 @@
 
 #import "QIMSDImageCache.h"
 #import "QIMSDWebImageDecoder.h"
-#import "UIImage+MultiFormat.h"
+#import "UIImage+QIMMultiFormat.h"
 #import <CommonCrypto/CommonDigest.h>
 
 // See https://github.com/rs/QIMSDWebImage/pull/1141 for discussion
@@ -369,7 +369,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
 - (UIImage *)diskImageForKey:(NSString *)key gifFlag:(BOOL)gifFlag {
     NSData *data = [self diskImageDataBySearchingAllPathsForKey:key];
     if (data) {
-        UIImage *image = [UIImage sd_imageWithData:data gifFlag:gifFlag];
+        UIImage *image = [UIImage qimsd_imageWithData:data gifFlag:gifFlag];
         image = [self scaledImageForKey:key image:image];
         if (self.shouldDecompressImages) {
             image = [UIImage decodedImageWithImage:image];

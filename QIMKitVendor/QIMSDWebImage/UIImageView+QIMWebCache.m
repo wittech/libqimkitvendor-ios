@@ -6,9 +6,9 @@
  * file that was distributed with this source code.
  */
 
-#import "UIImageView+WebCache.h"
+#import "UIImageView+QIMWebCache.h"
 #import "objc/runtime.h"
-#import "UIView+WebCacheOperation.h"
+#import "UIView+QIMWebCacheOperation.h"
 
 static char imageURLKey;
 static char TAG_ACTIVITY_INDICATOR;
@@ -17,32 +17,32 @@ static char TAG_ACTIVITY_SHOW;
 
 @implementation UIImageView (WebCache)
 
-- (void)sd_setImageWithURL:(NSURL *)url {
-    [self sd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:nil];
+- (void)qimsd_setImageWithURL:(NSURL *)url {
+    [self qimsd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:nil];
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:nil];
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:completedBlock];
+- (void)qimsd_setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:completedBlock];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:completedBlock];
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:completedBlock];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:completedBlock];
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:completedBlock];
 }
 
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options gifFlag:(BOOL)flag progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_cancelCurrentImageLoad];
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options gifFlag:(BOOL)flag progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_cancelCurrentImageLoad];
     objc_setAssociatedObject(self, &imageURLKey, url, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
     if (!(options & QIMSDWebImageDelayPlaceholder)) {
@@ -83,7 +83,7 @@ static char TAG_ACTIVITY_SHOW;
                 }
             });
         }];
-        [self sd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
+        [self qimsd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
     } else {
         dispatch_main_async_safe(^{
             [self removeActivityIndicator];
@@ -95,19 +95,19 @@ static char TAG_ACTIVITY_SHOW;
     }
 }
 
-- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
+- (void)qimsd_setImageWithPreviousCachedImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
     NSString *key = [[QIMSDWebImageManager sharedManager] cacheKeyForURL:url];
     UIImage *lastPreviousCachedImage = [[QIMSDImageCache sharedImageCache] imageFromDiskCacheForKey:key];
     
-    [self sd_setImageWithURL:url placeholderImage:lastPreviousCachedImage ?: placeholder options:options gifFlag:YES progress:progressBlock completed:completedBlock];
+    [self qimsd_setImageWithURL:url placeholderImage:lastPreviousCachedImage ?: placeholder options:options gifFlag:YES progress:progressBlock completed:completedBlock];
 }
 
-- (NSURL *)sd_imageURL {
+- (NSURL *)qimsd_imageURL {
     return objc_getAssociatedObject(self, &imageURLKey);
 }
 
-- (void)sd_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
-    [self sd_cancelCurrentAnimationImagesLoad];
+- (void)qimsd_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
+    [self qimsd_cancelCurrentAnimationImagesLoad];
     __weak __typeof(self)wself = self;
 
     NSMutableArray *operationsArray = [[NSMutableArray alloc] init];
@@ -134,15 +134,15 @@ static char TAG_ACTIVITY_SHOW;
         [operationsArray addObject:operation];
     }
 
-    [self sd_setImageLoadOperation:[NSArray arrayWithArray:operationsArray] forKey:@"UIImageViewAnimationImages"];
+    [self qimsd_setImageLoadOperation:[NSArray arrayWithArray:operationsArray] forKey:@"UIImageViewAnimationImages"];
 }
 
-- (void)sd_cancelCurrentImageLoad {
-    [self sd_cancelImageLoadOperationWithKey:@"UIImageViewImageLoad"];
+- (void)qimsd_cancelCurrentImageLoad {
+    [self qimsd_cancelImageLoadOperationWithKey:@"UIImageViewImageLoad"];
 }
 
-- (void)sd_cancelCurrentAnimationImagesLoad {
-    [self sd_cancelImageLoadOperationWithKey:@"UIImageViewAnimationImages"];
+- (void)qimsd_cancelCurrentAnimationImagesLoad {
+    [self qimsd_cancelImageLoadOperationWithKey:@"UIImageViewAnimationImages"];
 }
 
 
@@ -214,68 +214,68 @@ static char TAG_ACTIVITY_SHOW;
 
 @implementation UIImageView (WebCacheDeprecated)
 
-- (NSURL *)imageURL {
-    return [self sd_imageURL];
+- (NSURL *)qimimageURL {
+    return [self qimsd_imageURL];
 }
 
-- (void)setImageWithURL:(NSURL *)url {
-    [self sd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:nil];
+- (void)qimsetImageWithURL:(NSURL *)url {
+    [self qimsd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:nil];
+- (void)qimsetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:nil];
+- (void)qimsetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:nil];
 }
 
-- (void)setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+- (void)qimsetImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:nil options:0 gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
     }];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+- (void)qimsetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:0 gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
     }];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+- (void)qimsetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:nil completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
     }];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock {
-    [self sd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:progressBlock completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
+- (void)qimsetImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock {
+    [self qimsd_setImageWithURL:url placeholderImage:placeholder options:options gifFlag:YES progress:progressBlock completed:^(UIImage *image, NSError *error, QIMSDImageCacheType cacheType, NSURL *imageURL) {
         if (completedBlock) {
             completedBlock(image, error, cacheType);
         }
     }];
 }
 
-- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
-    [self sd_setImageWithPreviousCachedImageWithURL:url placeholderImage:placeholder options:options progress:progressBlock completed:completedBlock];
+- (void)qimsd_setImageWithPreviousCachedImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock {
+    [self qimsd_setImageWithPreviousCachedImageWithURL:url placeholderImage:placeholder options:options progress:progressBlock completed:completedBlock];
 }
 
-- (void)cancelCurrentArrayLoad {
-    [self sd_cancelCurrentAnimationImagesLoad];
+- (void)qim_cancelCurrentArrayLoad {
+    [self qimsd_cancelCurrentAnimationImagesLoad];
 }
 
-- (void)cancelCurrentImageLoad {
-    [self sd_cancelCurrentImageLoad];
+- (void)qim_cancelCurrentImageLoad {
+    [self qimsd_cancelCurrentImageLoad];
 }
 
-- (void)setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
-    [self sd_setAnimationImagesWithURLs:arrayOfURLs];
+- (void)qim_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs {
+    [self qimsd_setAnimationImagesWithURLs:arrayOfURLs];
 }
 
 @end

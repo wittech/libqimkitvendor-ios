@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSData (ImageContentType)
+@interface NSData (QIMImageContentType)
 
 /**
  *  Compute the content type for an image data
@@ -14,13 +14,13 @@
  *
  *  @return the content type as string (i.e. image/jpeg, image/gif)
  */
-+ (NSString *)sd_contentTypeForImageData:(NSData *)data;
++ (NSString *)qimsd_contentTypeForImageData:(NSData *)data;
 
 @end
 
 
-@interface NSData (ImageContentTypeDeprecated)
+@interface NSData (QIMImageContentTypeDeprecated)
 
-+ (NSString *)contentTypeForImageData:(NSData *)data __deprecated_msg("Use `sd_contentTypeForImageData:`");
++ (NSString *)qim_contentTypeForImageData:(NSData *)data __deprecated_msg("Use `qimsd_contentTypeForImageData:`");
 
 @end

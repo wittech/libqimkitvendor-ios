@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-#import "UIView+WebCacheOperation.h"
+#import "UIView+QIMWebCacheOperation.h"
 #import "objc/runtime.h"
 
 static char loadOperationKey;
@@ -23,13 +23,13 @@ static char loadOperationKey;
     return operations;
 }
 
-- (void)sd_setImageLoadOperation:(id)operation forKey:(NSString *)key {
-    [self sd_cancelImageLoadOperationWithKey:key];
+- (void)qimsd_setImageLoadOperation:(id)operation forKey:(NSString *)key {
+    [self qimsd_cancelImageLoadOperationWithKey:key];
     NSMutableDictionary *operationDictionary = [self operationDictionary];
     [operationDictionary setObject:operation forKey:key];
 }
 
-- (void)sd_cancelImageLoadOperationWithKey:(NSString *)key {
+- (void)qimsd_cancelImageLoadOperationWithKey:(NSString *)key {
     // Cancel in progress downloader from queue
     NSMutableDictionary *operationDictionary = [self operationDictionary];
     id operations = [operationDictionary objectForKey:key];
@@ -47,7 +47,7 @@ static char loadOperationKey;
     }
 }
 
-- (void)sd_removeImageLoadOperationWithKey:(NSString *)key {
+- (void)qimsd_removeImageLoadOperationWithKey:(NSString *)key {
     NSMutableDictionary *operationDictionary = [self operationDictionary];
     [operationDictionary removeObjectForKey:key];
 }

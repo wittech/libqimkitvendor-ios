@@ -8,7 +8,7 @@
 
 #import "QIMSDWebImageDownloaderOperation.h"
 #import "QIMSDWebImageDecoder.h"
-#import "UIImage+MultiFormat.h"
+#import "UIImage+QIMMultiFormat.h"
 #import <ImageIO/ImageIO.h>
 #import "QIMSDWebImageManager.h"
 
@@ -414,7 +414,7 @@ didReceiveResponse:(NSURLResponse *)response
             if (self.options & QIMSDWebImageDownloaderIgnoreCachedResponse && responseFromCached && [[NSURLCache sharedURLCache] cachedResponseForRequest:self.request]) {
                 completionBlock(nil, nil, nil, YES);
             } else if (self.imageData) {
-                UIImage *image = [UIImage sd_imageWithData:self.imageData gifFlag:YES];
+                UIImage *image = [UIImage qimsd_imageWithData:self.imageData gifFlag:YES];
                 NSString *key = [[QIMSDWebImageManager sharedManager] cacheKeyForURL:self.request.URL];
                 image = [self scaledImageForKey:key image:image];
                 

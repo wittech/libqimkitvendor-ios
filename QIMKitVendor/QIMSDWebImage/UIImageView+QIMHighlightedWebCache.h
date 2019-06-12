@@ -22,7 +22,7 @@
  *
  * @param url The url for the image.
  */
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url;
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -32,7 +32,7 @@
  * @param url     The url for the image.
  * @param options The options to use when downloading the image. @see QIMSDWebImageOptions for the possible values.
  */
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options;
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options;
 
 /**
  * Set the imageView `highlightedImage` with an `url`.
@@ -46,7 +46,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -61,7 +61,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `highlightedImage` with an `url` and custom options.
@@ -77,24 +77,24 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Cancel the current download
  */
-- (void)sd_cancelCurrentHighlightedImageLoad;
+- (void)qimsd_cancelCurrentHighlightedImageLoad;
 
 @end
 
 
 @interface UIImageView (HighlightedWebCacheDeprecated)
 
-- (void)setHighlightedImageWithURL:(NSURL *)url __deprecated_msg("Method deprecated. Use `sd_setHighlightedImageWithURL:`");
-- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `sd_setHighlightedImageWithURL:options:`");
-- (void)setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setHighlightedImageWithURL:completed:`");
-- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setHighlightedImageWithURL:options:completed:`");
-- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setHighlightedImageWithURL:options:progress:completed:`");
+- (void)setHighlightedImageWithURL:(NSURL *)url __deprecated_msg("Method deprecated. Use `qimsd_setHighlightedImageWithURL:`");
+- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `qimsd_setHighlightedImageWithURL:options:`");
+- (void)setHighlightedImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setHighlightedImageWithURL:completed:`");
+- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setHighlightedImageWithURL:options:completed:`");
+- (void)setHighlightedImageWithURL:(NSURL *)url options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setHighlightedImageWithURL:options:progress:completed:`");
 
-- (void)cancelCurrentHighlightedImageLoad __deprecated_msg("Use `sd_cancelCurrentHighlightedImageLoad`");
+- (void)cancelCurrentHighlightedImageLoad __deprecated_msg("Use `qimsd_cancelCurrentHighlightedImageLoad`");
 
 @end

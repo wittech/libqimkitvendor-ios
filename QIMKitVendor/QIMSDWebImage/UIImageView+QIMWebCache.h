@@ -31,9 +31,9 @@
                  autorelease];
     }
  
-    // Here we use the provided sd_setImageWithURL: method to load the web image
+    // Here we use the provided qimsd_setImageWithURL: method to load the web image
     // Ensure you use a placeholder image otherwise cells will be initialized with no image
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
+    [cell.imageView qimsd_setImageWithURL:[NSURL URLWithString:@"http://example.com/image.jpg"]
                       placeholderImage:[UIImage imageNamed:@"placeholder"]];
  
     cell.textLabel.text = @"My Text";
@@ -48,9 +48,9 @@
  * Get the current image URL.
  *
  * Note that because of the limitations of categories this property can get out of sync
- * if you use sd_setImage: directly.
+ * if you use qimsd_setImage: directly.
  */
-- (NSURL *)sd_imageURL;
+- (NSURL *)qimsd_imageURL;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -59,7 +59,7 @@
  *
  * @param url The url for the image.
  */
-- (void)sd_setImageWithURL:(NSURL *)url;
+- (void)qimsd_setImageWithURL:(NSURL *)url;
 
 /**
  * Set the imageView `image` with an `url` and a placeholder.
@@ -68,9 +68,9 @@
  *
  * @param url         The url for the image.
  * @param placeholder The image to be set initially, until the image request finishes.
- * @see sd_setImageWithURL:placeholderImage:options:
+ * @see qimsd_setImageWithURL:placeholderImage:options:
  */
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder;
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -81,7 +81,7 @@
  * @param placeholder The image to be set initially, until the image request finishes.
  * @param options     The options to use when downloading the image. @see QIMSDWebImageOptions for the possible values.
  */
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options;
 
 /**
  * Set the imageView `image` with an `url`.
@@ -95,7 +95,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder.
@@ -110,7 +110,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -126,7 +126,7 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url`, placeholder and custom options.
@@ -143,8 +143,8 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options gifFlag:(BOOL)flag progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
-//- (void)sd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options gifFlag:(BOOL)flag progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
+//- (void)qimsd_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Set the imageView `image` with an `url` and optionally a placeholder image.
@@ -161,21 +161,21 @@
  *                       indicating if the image was retrieved from the local cache or from the network.
  *                       The fourth parameter is the original image url.
  */
-- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
+- (void)qimsd_setImageWithPreviousCachedImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock;
 
 /**
  * Download an array of images and starts them in an animation loop
  *
  * @param arrayOfURLs An array of NSURL
  */
-- (void)sd_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs;
+- (void)qimsd_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs;
 
 /**
  * Cancel the current download
  */
-- (void)sd_cancelCurrentImageLoad;
+- (void)qimsd_cancelCurrentImageLoad;
 
-- (void)sd_cancelCurrentAnimationImagesLoad;
+- (void)qimsd_cancelCurrentAnimationImagesLoad;
 
 /**
  *  Show activity UIActivityIndicatorView
@@ -194,23 +194,23 @@
 
 @interface UIImageView (WebCacheDeprecated)
 
-- (NSURL *)imageURL __deprecated_msg("Use `sd_imageURL`");
+- (NSURL *)imageURL __deprecated_msg("Use `qimsd_imageURL`");
 
-- (void)setImageWithURL:(NSURL *)url __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:placeholderImage:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:placeholderImage:options`");
+- (void)qim_setImageWithURL:(NSURL *)url __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:`");
+- (void)qim_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:placeholderImage:`");
+- (void)qim_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:placeholderImage:options`");
 
-- (void)setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:placeholderImage:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:placeholderImage:options:completed:`");
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithURL:placeholderImage:options:progress:completed:`");
+- (void)qim_setImageWithURL:(NSURL *)url completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:completed:`");
+- (void)qim_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:placeholderImage:completed:`");
+- (void)qim_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:placeholderImage:options:completed:`");
+- (void)qim_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletedBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithURL:placeholderImage:options:progress:completed:`");
 
-- (void)sd_setImageWithPreviousCachedImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock __deprecated_msg("Method deprecated. Use `sd_setImageWithPreviousCachedImageWithURL:placeholderImage:options:progress:completed:`");
+- (void)qim_qimsd_setImageWithPreviousCachedImageWithURL:(NSURL *)url andPlaceholderImage:(UIImage *)placeholder options:(QIMSDWebImageOptions)options progress:(QIMSDWebImageDownloaderProgressBlock)progressBlock completed:(QIMSDWebImageCompletionBlock)completedBlock __deprecated_msg("Method deprecated. Use `qimsd_setImageWithPreviousCachedImageWithURL:placeholderImage:options:progress:completed:`");
 
-- (void)setAnimationImagesWithURLs:(NSArray *)arrayOfURLs __deprecated_msg("Use `sd_setAnimationImagesWithURLs:`");
+- (void)qim_setAnimationImagesWithURLs:(NSArray *)arrayOfURLs __deprecated_msg("Use `qimsd_setAnimationImagesWithURLs:`");
 
-- (void)cancelCurrentArrayLoad __deprecated_msg("Use `sd_cancelCurrentAnimationImagesLoad`");
+- (void)qim_cancelCurrentArrayLoad __deprecated_msg("Use `qimsd_cancelCurrentAnimationImagesLoad`");
 
-- (void)cancelCurrentImageLoad __deprecated_msg("Use `sd_cancelCurrentImageLoad`");
+- (void)qim_cancelCurrentImageLoad __deprecated_msg("Use `qimsd_cancelCurrentImageLoad`");
 
 @end
