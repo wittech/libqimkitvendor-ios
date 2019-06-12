@@ -108,6 +108,13 @@ Pod::Spec.new do |s|
     gcd.requires_arc = false  
     gcd.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
+
+  s.subspec 'SDWebImage' do |sdwebImage|
+    sdwebImage.source_files = 'QIMKitVendor/QIMSDWebImage/{NS,SD,UI,QIM}*.{h,m}'
+    sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
+    sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
+    sdwebImage.framework = 'ImageIO'
+  end
   
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
   
