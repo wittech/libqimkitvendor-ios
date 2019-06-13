@@ -116,6 +116,9 @@ Pod::Spec.new do |s|
     sdwebImage.framework = 'ImageIO'
   end
   
+  s.pod_target_xcconfig = {
+    "APPLICATION_EXTENSION_API_ONLY" => "YES",
+  }
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
   
   if $debug
