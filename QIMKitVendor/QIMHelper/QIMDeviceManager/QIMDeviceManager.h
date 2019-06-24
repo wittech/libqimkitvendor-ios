@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 
+- (BOOL)isIphoneXSeries;
+
 - (CGFloat)getHOME_INDICATOR_HEIGHT;
 
 - (CGFloat)getTAB_BAR_HEIGHT;
