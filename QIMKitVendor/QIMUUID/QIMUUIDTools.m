@@ -178,11 +178,11 @@
 }
 
 + (BOOL) setRequestURL:(NSData *)requestUrl {
-    return [self setData:requestUrl forKey:@"requestUrl"];
+    return [self setData:requestUrl forKey:@"NewRequestUrl"];
 }
 
 + (NSData *)getRequestUrl {
-    return [QIMUUIDTools dataForKey:@"requestUrl"];
+    return [QIMUUIDTools dataForKey:@"NewRequestUrl"];
 }
 
 + (BOOL) setRequestDomain:(NSData *)requestDoamin {
