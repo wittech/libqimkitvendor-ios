@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedInstance;
 
-- (BOOL)isIphoneXSeries;
+- (BOOL)isIphoneXSeries NS_EXTENSION_UNAVAILABLE_IOS("");
 
 - (CGFloat)getHOME_INDICATOR_HEIGHT;
 
