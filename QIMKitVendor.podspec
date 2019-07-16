@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "2.0.2"
+  s.version      = "3.0.10211613"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -108,7 +108,17 @@ Pod::Spec.new do |s|
     gcd.requires_arc = false  
     gcd.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
-  
+
+  s.subspec 'SDWebImage' do |sdwebImage|
+    sdwebImage.source_files = 'QIMKitVendor/QIMSDWebImage/{NS,SD,UI,QIM}*.{h,m}'
+    sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
+    sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
+    sdwebImage.framework = 'ImageIO'
+  end
+
+  s.pod_target_xcconfig = {
+    "APPLICATION_EXTENSION_API_ONLY" => "YES",
+  }
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
   
   if $debug
@@ -117,7 +127,7 @@ Pod::Spec.new do |s|
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
-    s.dependency 'QIMCommonCategories', '~> 2.0'
+    s.dependency 'QIMCommonCategories', '~> 3.0'
   end
   
   s.dependency 'ZipArchive'

@@ -63,7 +63,8 @@
         NSString * fileName = [fileComponentes lastObject];
         if([fileManager fileExistsAtPath:filePath])
         {   //添加文件到压缩文件
-            [zipArchive addFileToZip:filePath newname:fileName];
+            BOOL succ = [zipArchive addFileToZip:filePath newname:fileName];
+            NSLog(@"sycc : %d - %@", succ, filePath);
         }
     }
     //关闭文件
