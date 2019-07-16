@@ -115,7 +115,7 @@ Pod::Spec.new do |s|
     sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
     sdwebImage.framework = 'ImageIO'
   end
-  
+
   s.pod_target_xcconfig = {
     "APPLICATION_EXTENSION_API_ONLY" => "YES",
   }
