@@ -96,6 +96,7 @@ Pod::Spec.new do |s|
       http.public_header_files = 'QIMKitVendor/QIMHTTP/**/*.{h}'
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
       http.dependency 'ASIHTTPRequest'
+      http.dependency 'AFNetworking'
       http.dependency 'QIMKitVendor/JSON'
       http.dependency 'QIMKitVendor/DOG'
       http.dependency 'QIMKitVendor/PublicRedefineHeader'      

@@ -23,4 +23,36 @@
     return [[self alloc] initWithURL:url];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _httpRequestType = QIMHTTPRequestTypeNormal;
+        _HTTPMethod = QIMHTTPMethodPOST;
+        _timeoutInterval = 60.0;
+        _retryCount = 0;
+        _requestSerializer = QIMHttpRequestSerializerJSON;
+        _responseSerializer = QIMHttpResponseSerializerJSON;
+    }
+    return self;
+}
+
+-(NSMutableArray<QIMHTTPUploadComponent *> *)uploadComponents{
+    if (!_uploadComponents) {
+        _uploadComponents = [NSMutableArray array];
+    }
+    return _uploadComponents;
+}
+
+-(void)addFromDataWithDataKey:(NSString *)dataKey fileName:(NSString *)fileName filePath:(NSString *)filePath minetype:(NSString *)mimeType fileData:(NSData *)fileData{
+    [self.uploadComponents addObject:[QIMHTTPUploadComponent addFromDataWithDataKey:dataKey fileName:fileName filePath:filePath minetype:mimeType fileData:fileData fileUrl:nil]];
+}
+
+-(void)cleanCallbackBlocks{
+    _completeHandler = nil;
+    _failuerHandler = nil;
+    _progressHandler = nil;
+    _finishHandler = nil;
+}
+
 @end

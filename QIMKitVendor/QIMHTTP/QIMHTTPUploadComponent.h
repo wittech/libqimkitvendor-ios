@@ -16,11 +16,13 @@
  filePath: 上传的文件路径
  data: 上传的data数据
  */
-@property (nonatomic, copy, readonly) NSString *dataKey;
-@property (nonatomic, copy, readonly) NSString *filePath;
-@property (nonatomic, copy, readonly) NSString *fileName;
-@property (nonatomic, copy, readonly) NSString *mimeType;
-@property (nonatomic, strong, readonly) NSData *data;
+
+@property (nonatomic, copy, nonnull) NSString *dataKey;
+@property (nonatomic, copy, nullable) NSString * filePath;
+@property (nonatomic, copy, nullable) NSString * fileName;
+@property (nonatomic, copy, nullable) NSString * mimeType;
+@property (nonatomic, strong, nullable) NSData * fileData;
+@property (nonatomic, strong, nullable) NSURL * fileUrl;
 
 /**
  Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the data from the input stream and the multipart form boundary.
@@ -29,6 +31,9 @@
  The fileName and MIME type for this data in the form will be automatically generated, using the last path component of the `filePath` and system associated MIME type for the `filePath` extension, respectively.
  @return A newly-created and autoreleased ZHHTTPUploadComponent instance.
  */
-- (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath;
+
++ (QIMHTTPUploadComponent *)addFromDataWithDataKey:(NSString *  _Nonnull)dataKey fileName:(NSString *_Nullable)fileName filePath:(NSString * _Nullable)filePath minetype:(NSString * _Nullable)mimeType fileData:(NSData *  _Nonnull)fileData fileUrl:(NSURL * _Nonnull)fileUrl;
+
+
 
 @end
