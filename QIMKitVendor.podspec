@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = '9.0'
 
   $debug = ENV['debug']
+  $beta = ENV['beta']
  
   s.subspec 'PublicRedefineHeader' do |prHeader|
       prHeader.source_files = "QIMKitVendor/QIMPublicRedefineHeader/QIMPublicRedefineHeader.h"    
@@ -123,7 +124,9 @@ Pod::Spec.new do |s|
   
   if $debug
     puts 'debug QIMKitVendor依赖第三方库'
-
+  elsif $beta
+    put 'beta QIMKitVendor依赖第三方库'
+    s.dependency 'QIMCommonCategories', '> 0.beta'
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
