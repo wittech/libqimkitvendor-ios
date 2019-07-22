@@ -126,7 +126,6 @@ Pod::Spec.new do |s|
     puts 'debug QIMKitVendor依赖第三方库'
   elsif $beta
     puts 'beta QIMKitVendor依赖第三方库'
-    s.dependency 'QIMCommonCategories', '> 0.beta'
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
@@ -134,6 +133,6 @@ Pod::Spec.new do |s|
   end
   
   s.dependency 'ZipArchive'
-  s.dependency 'CocoaLumberjack'  
+  s.dependency 'CocoaLumberjack'
 
 end
