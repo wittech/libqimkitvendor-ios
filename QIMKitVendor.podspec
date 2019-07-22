@@ -125,7 +125,7 @@ Pod::Spec.new do |s|
   if $debug
     puts 'debug QIMKitVendor依赖第三方库'
   elsif $beta
-    put 'beta QIMKitVendor依赖第三方库'
+    puts 'beta QIMKitVendor依赖第三方库'
     s.dependency 'QIMCommonCategories', '> 0.beta'
   else
 
