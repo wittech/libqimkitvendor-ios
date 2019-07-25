@@ -110,6 +110,17 @@ Pod::Spec.new do |s|
     gcd.dependency 'QIMKitVendor/PublicRedefineHeader'
   end
 
+  s.subspec 'libwebp' do |libwebp|
+    libwebp.requires_arc = false
+    libwebp.pod_target_xcconfig = {"HEADER_SEARCH_PATHS" => "\"${PODS_ROOT}/Headers/Private/**\" \"${PODS_ROOT}/Headers/Private/QIMKitVendor/**\" \"${PODS_ROOT}/Headers/Public/QIMKitVendor/**\" \"${PODS_ROOT}/Headers/Public/QIMKitVendor/**\""}
+
+#    libwebp.pod_target_xcconfig = {
+#      "USER_HEADER_SEARCH_PATHS": "$(inherited) ${PODS_ROOT}/QIMKitVendor/**"
+#    }
+    libwebp.header_dir = 'webp'
+    libwebp.source_files = 'QIMKitVendor/QIMLibwebp/src/**/*{h,c}'
+  end
+  
   s.subspec 'SDWebImage' do |sdwebImage|
     sdwebImage.source_files = 'QIMKitVendor/QIMSDWebImage/{NS,SD,UI,QIM}*.{h,m}'
     sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
