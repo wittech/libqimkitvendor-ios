@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "3.0.10211613"
+  s.version      = "4.0.10211613"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -129,7 +129,7 @@ Pod::Spec.new do |s|
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
-    s.dependency 'QIMCommonCategories', '~> 3.0'
+    s.dependency 'QIMCommonCategories', '~> 4.0'
   end
   
   s.dependency 'ZipArchive'
