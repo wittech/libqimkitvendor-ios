@@ -121,12 +121,12 @@ Pod::Spec.new do |s|
     libwebp.source_files = 'QIMKitVendor/QIMLibwebp/src/**/*{h,c}'
   end
   
-  s.subspec 'SDWebImage' do |sdwebImage|
-    sdwebImage.source_files = 'QIMKitVendor/QIMSDWebImage/{NS,SD,UI,QIM}*.{h,m}'
-    sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
-    sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
-    sdwebImage.framework = 'ImageIO'
-  end
+#  s.subspec 'SDWebImage' do |sdwebImage|
+#    sdwebImage.source_files = 'QIMKitVendor/QIMSDWebImage/{NS,SD,UI,QIM}*.{h,m}'
+#    sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
+#    sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
+#    sdwebImage.framework = 'ImageIO'
+#  end
 
   s.pod_target_xcconfig = {
     "APPLICATION_EXTENSION_API_ONLY" => "YES",
