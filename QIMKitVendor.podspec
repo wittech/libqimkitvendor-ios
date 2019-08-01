@@ -129,7 +129,7 @@ Pod::Spec.new do |s|
   else
 
     puts '线上release QIMKitVendor依赖第三方库'
-    s.dependency 'QIMCommonCategories', '~> 3.0'
+    s.dependency 'QIMCommonCategories', '~> 4.0'
   end
   
   s.dependency 'ZipArchive'
