@@ -71,7 +71,7 @@ static NSString *const kCompletedCallbackKey = @"completed";
         _downloadQueue.maxConcurrentOperationCount = 6;
         _downloadQueue.name = @"com.hackemist.QIMSDWebImageDownloader";
         _URLCallbacks = [NSMutableDictionary new];
-#ifdef SD_WEBP
+#ifdef QIMSD_WEBP
         _HTTPHeaders = [@{@"Accept": @"image/webp,image/*;q=0.8"} mutableCopy];
 #else
         _HTTPHeaders = [@{@"Accept": @"image/*;q=0.8"} mutableCopy];

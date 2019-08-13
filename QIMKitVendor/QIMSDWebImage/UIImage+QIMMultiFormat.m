@@ -11,8 +11,8 @@
 #import "NSData+QIMImageContentType.h"
 #import <ImageIO/ImageIO.h>
 
-#ifdef SD_WEBP
-#import "UIImage+WebP.h"
+#ifdef QIMSD_WEBP
+#import "UIImage+QIMWebP.h"
 #endif
 
 @implementation UIImage (QIMMultiFormat)
@@ -27,7 +27,7 @@
     if ([imageContentType isEqualToString:@"image/gif"]) {
         image = [UIImage qimsd_animatedGIFWithData:data gifFlag:gifFlag];
     }
-#ifdef SD_WEBP
+#ifdef QIMSD_WEBP
     else if ([imageContentType isEqualToString:@"image/webp"])
     {
         image = [UIImage qimsd_imageWithWebPData:data];
