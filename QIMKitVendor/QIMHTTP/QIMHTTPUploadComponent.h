@@ -16,11 +16,11 @@
  filePath: 上传的文件路径
  data: 上传的data数据
  */
-@property (nonatomic, copy, readonly) NSString *dataKey;
-@property (nonatomic, copy, readonly) NSString *filePath;
-@property (nonatomic, copy, readonly) NSString *fileName;
-@property (nonatomic, copy, readonly) NSString *mimeType;
-@property (nonatomic, strong, readonly) NSData *data;
+@property (nonatomic, copy) NSString *dataKey;
+@property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, copy) NSString *fileName;
+@property (nonatomic, copy) NSString *mimeType;
+@property (nonatomic, strong) NSData *data;
 
 /**
  Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the data from the input stream and the multipart form boundary.
@@ -30,5 +30,8 @@
  @return A newly-created and autoreleased ZHHTTPUploadComponent instance.
  */
 - (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath;
+
+
+- (instancetype)initWithDataKey:(NSString *)dataKey fileData:(NSData *)fileData;
 
 @end
