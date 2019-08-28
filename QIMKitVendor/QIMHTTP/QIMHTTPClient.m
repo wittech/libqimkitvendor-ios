@@ -82,6 +82,10 @@ static NSString *baseUrl = nil;
             } else if (component.data) {
                 [asiRequest addData:component.data withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
             }
+            NSDictionary *uploadBodyDic = component.bodyDic;
+            for (NSString *uploadBodyKey in component.bodyDic.allKeys) {
+                [asiRequest addPostValue:[uploadBodyDic objectForKey:uploadBodyKey] forKey:uploadBodyKey];
+            }
         }
     }
     [self configureASIRequest:asiRequest QIMHTTPRequest:request complete:completeHandler failure:failureHandler];
