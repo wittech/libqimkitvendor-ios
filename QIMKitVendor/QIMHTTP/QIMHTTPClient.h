@@ -15,4 +15,9 @@
            complete:(QIMCompleteHandler)completeHandler
             failure:(QIMFailureHandler)failureHandler;
 
++ (void)sendRequest:(QIMHTTPRequest *)request
+      progressBlock:(QIMProgressHandler)progreeBlock
+           complete:(QIMCompleteHandler)completeHandler
+            failure:(QIMFailureHandler)failureHandler;
+
 @end
