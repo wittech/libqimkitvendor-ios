@@ -2289,7 +2289,9 @@ static NSOperationQueue *sharedQueue = nil;
 						ASI_DEBUG_LOG(@"[CONNECTION] Got no keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
 					#endif
 				}
-			}
+            } else {
+                
+            }
 		}
 	}
 
