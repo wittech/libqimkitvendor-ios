@@ -37,20 +37,34 @@ static NSString *baseUrl = nil;
         request.HTTPMethod = QIMHTTPMethodPOST;
     }
     if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient getMethodRequest:request complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient getMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
     } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-        [QIMHTTPClient postMethodRequest:request complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient postMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
+    } else {
+        
+    }
+}
+
++ (void)sendRequest:(QIMHTTPRequest *)request progressBlock:(QIMProgressHandler)progreeBlock complete:(QIMCompleteHandler)completeHandler failure:(QIMFailureHandler)failureHandler {
+    if (request.uploadComponents.count > 0 || request.postParams || request.HTTPBody) {
+        request.HTTPMethod = QIMHTTPMethodPOST;
+    }
+    if (request.HTTPMethod == QIMHTTPMethodGET) {
+        [QIMHTTPClient getMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
+    } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
+        [QIMHTTPClient postMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     } else {
         
     }
 }
 
 + (void)getMethodRequest:(QIMHTTPRequest *)request
+           progressBlock:(QIMProgressHandler)progreeBlock
                 complete:(QIMCompleteHandler)completeHandler
                  failure:(QIMFailureHandler)failureHandler {
     ASIHTTPRequest *asiRequest = [ASIHTTPRequest requestWithURL:request.url];
     [asiRequest setRequestMethod:@"GET"];
-    [self configureASIRequest:asiRequest QIMHTTPRequest:request complete:completeHandler failure:failureHandler];
+    [self configureASIRequest:asiRequest QIMHTTPRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     if (request.shouldASynchronous) {
         [asiRequest startAsynchronous];
     } else {
@@ -59,6 +73,7 @@ static NSString *baseUrl = nil;
 }
 
 + (void)postMethodRequest:(QIMHTTPRequest *)request
+            progressBlock:(QIMProgressHandler)progreeBlock
                  complete:(QIMCompleteHandler)completeHandler
                   failure:(QIMFailureHandler)failureHandler {
     ASIFormDataRequest *asiRequest = [ASIFormDataRequest requestWithURL:request.url];
@@ -82,9 +97,13 @@ static NSString *baseUrl = nil;
             } else if (component.data) {
                 [asiRequest addData:component.data withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
             }
+            NSDictionary *uploadBodyDic = component.bodyDic;
+            for (NSString *uploadBodyKey in component.bodyDic.allKeys) {
+                [asiRequest addPostValue:[uploadBodyDic objectForKey:uploadBodyKey] forKey:uploadBodyKey];
+            }
         }
     }
-    [self configureASIRequest:asiRequest QIMHTTPRequest:request complete:completeHandler failure:failureHandler];
+    [self configureASIRequest:asiRequest QIMHTTPRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
     QIMVerboseLog(@"startSynchronous获取当前线程1 :%@, %@",dispatch_get_current_queue(),  request.url);
     CFAbsoluteTime startTime = [[QIMWatchDog sharedInstance] startTime];
     if (request.shouldASynchronous) {
@@ -97,6 +116,7 @@ static NSString *baseUrl = nil;
 
 + (void)configureASIRequest:(ASIHTTPRequest *)asiRequest
               QIMHTTPRequest:(QIMHTTPRequest *)request
+              progressBlock:(QIMProgressHandler)progreeBlock
                    complete:(QIMCompleteHandler)completeHandler
                     failure:(QIMFailureHandler)failureHandler {
     [asiRequest setNumberOfTimesToRetryOnTimeout:2];
@@ -132,6 +152,15 @@ static NSString *baseUrl = nil;
         if (failureHandler) {
             QIMVerboseLog(@"Error : %@", strongAsiRequest.error);
             failureHandler(strongAsiRequest.error);
+        }
+    }];
+    __block long long receiveSize = 0;
+    [asiRequest setBytesSentBlock:^(unsigned long long size, unsigned long long total) {
+        receiveSize += size;
+        float progress = (float)receiveSize/total * 100;
+        QIMVerboseLog(@"progressValue22 : %lf", progress);
+        if (progreeBlock) {
+            progreeBlock(progress);
         }
     }];
 }
