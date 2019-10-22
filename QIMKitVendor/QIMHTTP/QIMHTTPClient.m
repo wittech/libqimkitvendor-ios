@@ -103,7 +103,7 @@ static NSString *baseUrl = nil;
             }
         }
     }
-    [self configureASIRequest:asiRequest QIMHTTPRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
+    [self configureASIRequest:asiRequest QIMHTTPRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     QIMVerboseLog(@"startSynchronous获取当前线程1 :%@, %@",dispatch_get_current_queue(),  request.url);
     CFAbsoluteTime startTime = [[QIMWatchDog sharedInstance] startTime];
     if (request.shouldASynchronous) {
