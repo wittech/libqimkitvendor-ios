@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *fileName;
 @property (nonatomic, copy) NSString *mimeType;
 @property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSDictionary *bodyDic;
 
 /**
  Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the data from the input stream and the multipart form boundary.
