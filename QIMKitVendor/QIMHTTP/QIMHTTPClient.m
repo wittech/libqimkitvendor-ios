@@ -157,8 +157,16 @@ static NSString *baseUrl = nil;
     __block long long receiveSize = 0;
     [asiRequest setBytesSentBlock:^(unsigned long long size, unsigned long long total) {
         receiveSize += size;
-        float progress = (float)receiveSize/total * 100;
-        QIMVerboseLog(@"progressValue22 : %lf", progress);
+        float progress = (float)receiveSize/total;
+        QIMVerboseLog(@"sent progressValue22 : %lf", progress);
+        if (progreeBlock) {
+            progreeBlock(progress);
+        }
+    }];
+    [asiRequest setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
+        receiveSize += size;
+        float progress = (float)receiveSize/total;
+        QIMVerboseLog(@"download progressValue : %lf", progress);
         if (progreeBlock) {
             progreeBlock(progress);
         }
