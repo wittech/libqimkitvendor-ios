@@ -2289,7 +2289,9 @@ static NSOperationQueue *sharedQueue = nil;
 						ASI_DEBUG_LOG(@"[CONNECTION] Got no keep-alive header, will keep this connection open for %f seconds", [self persistentConnectionTimeoutSeconds]);
 					#endif
 				}
-			}
+            } else {
+                
+            }
 		}
 	}
 
@@ -4730,14 +4732,18 @@ static NSOperationQueue *sharedQueue = nil;
 + (void)showNetworkActivityIndicator
 {
 #if TARGET_OS_IPHONE
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    });
 #endif
 }
 
 + (void)hideNetworkActivityIndicator
 {
 #if TARGET_OS_IPHONE
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];	
+    dispatch_async(dispatch_get_main_queue(), ^{
+       [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    });
 #endif
 }
 
