@@ -11,6 +11,8 @@
 @interface QIMHTTPResponse : NSObject
 
 @property (nonatomic) NSInteger code;
+
+//兼容ASIHttpRequest
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, copy) NSString *responseString;
 

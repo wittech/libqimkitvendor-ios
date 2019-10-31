@@ -10,24 +10,23 @@
 
 @implementation QIMHTTPUploadComponent
 
-- (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath {
-    self = [super init];
-    if (self) {
-        self.dataKey = dataKey;
-        self.filePath = filePath;
-        self.mimeType  = @"multipart/form-data";
++(QIMHTTPUploadComponent *)addFromDataWithDataKey:(NSString *)dataKey fileName:(NSString *)fileName filePath:(NSString *)filePath minetype:(NSString *)mimeType fileData:(NSData *)fileData fileUrl:(NSURL * _Nonnull)fileUrl
+{
+    QIMHTTPUploadComponent * uplopadComponent = [[QIMHTTPUploadComponent alloc]init];
+    uplopadComponent.dataKey = dataKey;
+    if (fileName) {
+        uplopadComponent.fileName = fileName;
     }
-    return self;
-}
-
-- (instancetype)initWithDataKey:(NSString *)dataKey fileData:(NSData *)fileData {
-    self = [super init];
-    if (self) {
-        self.dataKey = dataKey;
-        self.data = fileData;
-        self.mimeType  = @"multipart/form-data";
+    if (filePath) {
+        uplopadComponent.filePath = filePath;
     }
-    return self;
+    if (mimeType) {
+        uplopadComponent.mimeType = mimeType;
+    }
+    if (fileUrl) {
+        uplopadComponent.fileUrl = fileUrl;
+    }
+    uplopadComponent.fileData = fileData;
+    return uplopadComponent;
 }
-
 @end

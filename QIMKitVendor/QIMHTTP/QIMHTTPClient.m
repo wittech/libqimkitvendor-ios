@@ -13,7 +13,8 @@
 #import "QIMJSONSerializer.h"
 #import "QIMWatchDog.h"
 #import "QIMPublicRedefineHeader.h"
-
+#import "QIMHttpRequestManager.h"
+#import "QIMHttpRequestConfig.h"
 static NSString *baseUrl = nil;
 
 @implementation QIMHTTPClient
@@ -37,22 +38,11 @@ static NSString *baseUrl = nil;
         request.HTTPMethod = QIMHTTPMethodPOST;
     }
     if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient getMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient getMethodRequest:request complete:completeHandler failure:failureHandler];
+//        [QIMHTTPClient postAFMethodRequest:request complete:completeHandler failure:failureHandler];
     } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-        [QIMHTTPClient postMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
-    } else {
-        
-    }
-}
-
-+ (void)sendRequest:(QIMHTTPRequest *)request progressBlock:(QIMProgressHandler)progreeBlock complete:(QIMCompleteHandler)completeHandler failure:(QIMFailureHandler)failureHandler {
-    if (request.uploadComponents.count > 0 || request.postParams || request.HTTPBody) {
-        request.HTTPMethod = QIMHTTPMethodPOST;
-    }
-    if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient getMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
-    } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-        [QIMHTTPClient postMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
+//         [QIMHTTPClient postAFMethodRequest:request complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient postMethodRequest:request complete:completeHandler failure:failureHandler];
     } else {
         
     }
@@ -94,8 +84,8 @@ static NSString *baseUrl = nil;
             QIMHTTPUploadComponent *component = request.uploadComponents[i];
             if (component.filePath) {
                 [asiRequest addFile:component.filePath withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
-            } else if (component.data) {
-                [asiRequest addData:component.data withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
+            } else if (component.fileData) {
+                [asiRequest addData:component.fileData withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
             }
             NSDictionary *uploadBodyDic = component.bodyDic;
             for (NSString *uploadBodyKey in component.bodyDic.allKeys) {
@@ -173,4 +163,104 @@ static NSString *baseUrl = nil;
     }];
 }
 
+
++ (void)postAFMethodRequest:(QIMHTTPRequest *)request
+                         complete:(QIMCompleteHandler)completeHandler
+                          failure:(QIMFailureHandler)failureHandler
+{
+
+    [[QIMHttpRequestManager sharedManger] sendRequest:^(QIMHTTPRequest * _Nonnull qtRequest) {
+        qtRequest.url = request.url;
+        qtRequest.httpRequestType = request.httpRequestType;
+        qtRequest.HTTPMethod = request.HTTPMethod;
+        qtRequest.timeoutInterval = 60;
+        qtRequest.downloadDestinationPath = request.downloadDestinationPath;
+        qtRequest.HTTPRequestHeaders = request.HTTPRequestHeaders;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.retryCount = request.retryCount;
+        qtRequest.userInfo = request.userInfo;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.requestSerializer = request.requestSerializer;
+        qtRequest.responseSerializer = request.responseSerializer;
+        if (request.HTTPBody) {
+            qtRequest.postParams = [[QIMJSONSerializer sharedInstance] deserializeObject:request.HTTPBody error:nil];
+        }
+        else{
+            qtRequest.postParams = request.postParams;
+        }
+    } successBlock:^(id  _Nullable responseObjcet) {
+        NSLog(@"AFNetWorkingRebuid:%@",responseObjcet);
+        QIMHTTPResponse * response = [[QIMHTTPResponse alloc]init];
+        if ([responseObjcet isKindOfClass:[NSDictionary class]]) {
+            NSDictionary * dic = [responseObjcet copy];
+            if ([dic objectForKey:@"StatusCode"]) {
+                NSNumber * statusCode = dic[@"StatusCode"];
+                response.code = statusCode.integerValue;
+            }
+        }
+        NSData * data = [[QIMJSONSerializer sharedInstance] serializeObject:responseObjcet error:nil];
+        response.data = data;
+        response.responseString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
+        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", request.url.absoluteString, request.HTTPRequestHeaders, response);
+        if (completeHandler) {
+            completeHandler(response);
+        }
+    } failureBlock:^(NSError *error) {
+        if (failureHandler) {
+            NSLog(@"AFNetWorkingError:%@",error);
+            QIMVerboseLog(@"Error : %@",error);
+            failureHandler(error);
+        }
+    }];
+}
+
++ (void)sendRequest:(QIMHTTPRequest *)request success:(QIMSuccessHandler)successHandler failure:(QIMFailureHandler)failureHandler{
+
+    [[QIMHttpRequestManager sharedManger] sendRequest:^(QIMHTTPRequest * _Nonnull qtRequest) {
+        qtRequest.url = request.url;
+        qtRequest.httpRequestType = request.httpRequestType;
+        qtRequest.HTTPMethod = request.HTTPMethod;
+        qtRequest.timeoutInterval = 60;
+        qtRequest.downloadDestinationPath = request.downloadDestinationPath;
+        qtRequest.HTTPRequestHeaders = request.HTTPRequestHeaders;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.retryCount = request.retryCount;
+        qtRequest.userInfo = request.userInfo;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.requestSerializer = request.requestSerializer;
+        qtRequest.responseSerializer = request.responseSerializer;
+    } successBlock:^(id  _Nullable responseObjcet) {
+        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", request.url.absoluteString, request.HTTPRequestHeaders, responseObjcet);
+        if (successHandler) {
+            successHandler(responseObjcet);
+        }
+    } failureBlock:^(NSError *error) {
+        if (failureHandler) {
+            NSLog(@"AFNetWorkingError:%@",error);
+            QIMVerboseLog(@"Error : %@",error);
+            failureHandler(error);
+        }
+    }];
+}
+
+
++ (void)setCommonRequestConfig:(void (^)(QIMHttpRequestConfig *))configBlock{
+    [[QIMHttpRequestManager sharedManger] setQIMHttpRequestConfig:configBlock];
+}
+
+//+(void)load{
+//    //for test
+//    QIMHTTPRequest * request = [[QIMHTTPRequest alloc]init];
+//    request.url = [NSURL URLWithString:@"http://www.baidu.com"];
+//    request.httpRequestType = QIMHTTPRequestTypeNormal;
+//    request.requestSerializer = QIMHttpRequestSerializerHTTP;
+//    request.responseSerializer = QIMHttpResponseSerializerHTTP;
+//    request.HTTPMethod = QIMHTTPMethodGET;
+//    request.timeoutInterval = 10;
+//    [QIMHTTPClient postAFMethodRequest:request complete:^(QIMHTTPResponse * _Nullable response) {
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
+//}
 @end
