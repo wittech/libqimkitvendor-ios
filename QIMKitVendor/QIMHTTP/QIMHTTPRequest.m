@@ -7,6 +7,7 @@
 //
 
 #import "QIMHTTPRequest.h"
+#import "NSObject+QIMRuntime.h"
 
 @implementation QIMHTTPRequest
 
@@ -53,6 +54,11 @@
     _failuerHandler = nil;
     _progressHandler = nil;
     _finishHandler = nil;
+}
+
+- (NSString *)description{
+    NSMutableString *str = [NSMutableString stringWithString:[self qim_properties_aps]];
+    return str;
 }
 
 @end

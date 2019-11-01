@@ -108,7 +108,7 @@ Pod::Spec.new do |s|
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
 #      http.dependency 'ASIHTTPRequest'
       http.dependency 'QIMKitVendor/ASI'
-      http.dependency 'ASIHTTPRequest'
+#      http.dependency 'ASIHTTPRequest'
       http.dependency 'AFNetworking'
       http.dependency 'QIMKitVendor/JSON'
       http.dependency 'QIMKitVendor/DOG'
@@ -139,6 +139,18 @@ Pod::Spec.new do |s|
 #    sdwebImage.exclude_files = 'QIMKitVendor/QIMSDWebImage/UIImage+WebP.{h,m}'
 #    sdwebImage.tvos.exclude_files = 'QIMKitVendor/QIMSDWebImage/MKAnnotationView+WebCache.*'
 #    sdwebImage.framework = 'ImageIO'
+#  end
+
+#  s.subspec 'OPENSSL' do |openssl|
+#    openssl.ios.source_files        = 'QIMKitVendor/QIMOpenSSL/include-ios/openssl/**/*.h'
+#    openssl.ios.public_header_files = 'QIMKitVendor/QIMOpenSSL/include-ios/openssl/**/*.h'
+#    openssl.ios.header_dir          = 'QIMKitVendor/QIMOpenSSL/openssl'
+#    openssl.ios.preserve_paths      = 'QIMKitVendor/QIMOpenSSL/lib-ios/libcrypto.a', 'QIMKitVendor/QIMOpenSSL/lib-ios/libssl.a'
+#    openssl.ios.vendored_libraries  = 'QIMKitVendor/QIMOpenSSL/lib-ios/libcrypto.a', 'QIMKitVendor/QIMOpenSSL/lib-ios/libssl.a'
+#
+#    openssl.libraries = 'ssl', 'crypto'
+#    openssl.requires_arc = false
+#
 #  end
 
   s.pod_target_xcconfig = {
