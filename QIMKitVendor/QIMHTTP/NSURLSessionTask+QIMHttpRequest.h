@@ -7,10 +7,11 @@
 
 #import <Foundation/Foundation.h>
 #import "QIMHTTPRequest.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURLSessionTask (QIMHttpRequest)
-@property (nonatomic , strong) QIMHTTPRequest * sessionBindRequest;
+@property(nonatomic, strong) QIMHTTPRequest *sessionBindRequest;
 @end
 
 NS_ASSUME_NONNULL_END

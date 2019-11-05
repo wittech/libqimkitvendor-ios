@@ -7,28 +7,29 @@
 
 #import <Foundation/Foundation.h>
 #import "QIMHttpCommon.h"
+
 @class QIMHttpRequestConfig;
 @class QIMHTTPRequest;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface QIMHttpRequestManager : NSObject
 
-+(instancetype)sharedManger;
++ (instancetype)sharedManger;
 
-- (void)setQIMHttpRequestConfig:(void (^)(QIMHttpRequestConfig * requestConfig))config;
+- (void)setQIMHttpRequestConfig:(void (^)(QIMHttpRequestConfig *requestConfig))config;
 
-- (void)sendRequest:(void(^)(QIMHTTPRequest *qtRequest))rqeuestHandler
+- (void)sendRequest:(void (^)(QIMHTTPRequest *qtRequest))rqeuestHandler
        successBlock:(QIMSuccessHandler)succsessHandler
        failureBlock:(QIMFailureHandler)failureHandler;
 
-- (void)sendRequest:(void (^)(QIMHTTPRequest * qtRequest))requestHandler
+- (void)sendRequest:(void (^)(QIMHTTPRequest *qtRequest))requestHandler
        successBlock:(QIMSuccessHandler)succsessHandler
        failureBlock:(QIMFailureHandler)failureHandler
         finishBlock:(QIMfinishHandler)finishBlock;
 
--(void)cancelRequest:(NSString *)identifier;
+- (void)cancelRequest:(NSString *)identifier;
 
--(void)getRequest:(NSString *)identifier;
+- (void)getRequest:(NSString *)identifier;
 
 @end
 

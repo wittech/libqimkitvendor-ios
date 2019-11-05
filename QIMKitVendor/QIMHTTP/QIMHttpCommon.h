@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger,QIMHttpResponseSerializer) {
 typedef void(^QIMCompleteHandler)(QIMHTTPResponse * _Nullable response);
 
 
-typedef void(^QIMSuccessHandler) (id _Nullable responseObjcet);
+typedef void(^QIMSuccessHandler) (id _Nullable responseObjcet, NSInteger httpCode);
 typedef void(^QIMFailureHandler)(NSError * error);
 typedef void(^QIMProgressHandler)(NSProgress *progress);
 typedef void(^QIMCancleBlock)(id _Nullable request);

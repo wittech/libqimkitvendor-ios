@@ -10,7 +10,7 @@
 @class QIMHTTPRequest;
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^QIMHttpCompletionHandler)(id _Nullable responseObject, NSError * _Nullable error);
+typedef void(^QIMHttpCompletionHandler)(id _Nullable responseObject, NSInteger HTTPStatusCode, NSError * _Nullable error);
 
 @interface QIMHttpRequestEngine : NSObject
 

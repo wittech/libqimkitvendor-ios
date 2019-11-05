@@ -10,9 +10,8 @@
 
 @implementation QIMHTTPUploadComponent
 
-+(QIMHTTPUploadComponent *)addFromDataWithDataKey:(NSString *)dataKey fileName:(NSString *)fileName filePath:(NSString *)filePath minetype:(NSString *)mimeType fileData:(NSData *)fileData fileUrl:(NSURL * _Nonnull)fileUrl
-{
-    QIMHTTPUploadComponent * uplopadComponent = [[QIMHTTPUploadComponent alloc]init];
++ (QIMHTTPUploadComponent *)addFromDataWithDataKey:(NSString *)dataKey fileName:(NSString *)fileName filePath:(NSString *)filePath minetype:(NSString *)mimeType fileData:(NSData *)fileData fileUrl:(NSURL *_Nonnull)fileUrl {
+    QIMHTTPUploadComponent *uplopadComponent = [[QIMHTTPUploadComponent alloc] init];
     uplopadComponent.dataKey = dataKey;
     if (fileName) {
         uplopadComponent.fileName = fileName;
@@ -29,4 +28,26 @@
     uplopadComponent.fileData = fileData;
     return uplopadComponent;
 }
+
+- (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath {
+    self = [super init];
+    if (self) {
+        self.dataKey = dataKey;
+        self.filePath = filePath;
+        self.fileUrl = [NSURL fileURLWithPath:filePath];
+        self.mimeType = @"multipart/form-data";
+    }
+    return self;
+}
+
+- (instancetype)initWithDataKey:(NSString *)dataKey fileData:(NSData *)fileData {
+    self = [super init];
+    if (self) {
+        self.dataKey = dataKey;
+        self.fileData = fileData;
+        self.mimeType = @"multipart/form-data";
+    }
+    return self;
+}
+
 @end
