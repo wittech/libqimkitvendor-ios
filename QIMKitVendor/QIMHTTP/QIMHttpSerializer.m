@@ -31,7 +31,7 @@
         case QIMHttpRequestSerializerPLIST:
             return self.afPlistRequestSerializer;
         default:
-            return nil;
+            return self.jsonRequestSerializer;
             break;
     }
 }
@@ -51,6 +51,7 @@
             return self.afPlistResponseSerializer;
             break;
         default:
+            return self.jsonResponseSerializer;
             break;
     }
 }
@@ -79,7 +80,7 @@
 - (AFHTTPResponseSerializer *)httpResponseSerializer {
     if (!_httpResponseSerializer) {
         _httpResponseSerializer = [AFHTTPResponseSerializer serializer];
-        _httpResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+        _httpResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"multipart/form-data", nil];
     }
     return _httpResponseSerializer;
 }
@@ -87,7 +88,7 @@
 - (AFJSONResponseSerializer *)jsonResponseSerializer {
     if (!_jsonResponseSerializer) {
         _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
-        _jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+        _jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"multipart/form-data", nil];
     }
     return _jsonResponseSerializer;
 }
@@ -95,7 +96,7 @@
 - (AFXMLParserResponseSerializer *)afXMLParserResponseSerializer {
     if (!_afXMLParserResponseSerializer) {
         _afXMLParserResponseSerializer = [AFXMLParserResponseSerializer serializer];
-        _afXMLParserResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+        _afXMLParserResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"multipart/form-data", nil];
     }
     return _afXMLParserResponseSerializer;
 }
@@ -103,7 +104,7 @@
 - (AFPropertyListResponseSerializer *)afPlistResponseSerializer {
     if (!_afPlistResponseSerializer) {
         _afPlistResponseSerializer = [AFPropertyListResponseSerializer serializer];
-        _afPlistResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+        _afPlistResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", @"multipart/form-data", nil];
     }
     return _afPlistResponseSerializer;
 }

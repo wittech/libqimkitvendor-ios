@@ -133,12 +133,14 @@ static dispatch_queue_t qim_request_complete_callback_quene() {
     NSMutableURLRequest *urlRequest = [requestSerializer multipartFormRequestWithMethod:@"POST" URLString:request.url.absoluteString parameters:request.postParams constructingBodyWithBlock:^(id <AFMultipartFormData> _Nonnull formData) {
         [request.uploadComponents enumerateObjectsUsingBlock:^(QIMHTTPUploadComponent *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if (obj.fileData) {
+                //上传文件，fileData为文件二进制
                 if (obj.mimeType && obj.fileName) {
                     [formData appendPartWithFileData:obj.fileData name:obj.dataKey fileName:obj.fileName mimeType:obj.mimeType];
                 } else {
                     [formData appendPartWithFormData:obj.fileData name:obj.dataKey];
                 }
             } else if (obj.fileUrl) {
+                //上传文件，fileUrl为本地路径
                 NSError *fileError = nil;
                 if (obj.fileName && obj.mimeType) {
                     [formData appendPartWithFileURL:obj.fileUrl name:obj.dataKey fileName:obj.fileName mimeType:obj.mimeType error:&fileError];
@@ -149,6 +151,12 @@ static dispatch_queue_t qim_request_complete_callback_quene() {
                 if (fileError) {
                     serializerErr = fileError;
                     *stop = YES;
+                }
+            } else {
+                //发送formdata 表单
+                NSDictionary *uploadBodyDic = obj.bodyDic;
+                for (NSString *uploadBodyKey in obj.bodyDic.allKeys) {
+                    [formData appendPartWithFormData:[[uploadBodyDic objectForKey:uploadBodyKey] dataUsingEncoding:NSUTF8StringEncoding] name:uploadBodyKey];
                 }
             }
         }];

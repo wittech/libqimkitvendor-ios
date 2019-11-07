@@ -61,10 +61,8 @@ static NSString *baseUrl = nil;
         qtRequest.retryCount = request.retryCount;
         qtRequest.userInfo = request.userInfo;
         qtRequest.uploadComponents = request.uploadComponents;
-        qtRequest.requestSerializer = QIMHttpRequestSerializerJSON;
-        //        request.requestSerializer;
-        qtRequest.responseSerializer = QIMHttpResponseSerializerJSON;
-        //        request.responseSerializer;
+        qtRequest.requestSerializer = request.requestSerializer;
+        qtRequest.responseSerializer = request.responseSerializer;
         if (request.HTTPBody) {
             qtRequest.postParams = [[QIMJSONSerializer sharedInstance] deserializeObject:request.HTTPBody error:nil];
         } else {
@@ -74,11 +72,10 @@ static NSString *baseUrl = nil;
     } successBlock:^(id  _Nullable responseObjcet, NSInteger httpCode) {
         QIMVerboseLog(@"AFNetWorkingRebuid:%@,  request : %@",responseObjcet, request);
         QIMHTTPResponse * response = [[QIMHTTPResponse alloc]init];
-        NSData *data = [[QIMJSONSerializer sharedInstance] serializeObject:responseObjcet error:nil];
-        response.data = data;
+        response.data = responseObjcet;
         response.code = httpCode;
-        response.responseString = [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding];
-        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response : %@\n", request.url.absoluteString, request.HTTPRequestHeaders, response);
+        response.responseString = [[NSString alloc] initWithData:responseObjcet encoding:NSUTF8StringEncoding];
+        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response ( %@ )\n", request.url.absoluteString, request.HTTPRequestHeaders, response);
         if (completeHandler) {
             completeHandler(response);
         }
@@ -89,8 +86,6 @@ static NSString *baseUrl = nil;
         }
     }];
 }
-
-
 
 + (void)postMethodRequest:(QIMHTTPRequest *)request
             progressBlock:(QIMProgressHandler)progreeBlock

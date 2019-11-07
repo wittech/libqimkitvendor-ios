@@ -24,9 +24,9 @@ typedef NS_ENUM(NSInteger, QIMHTTPRequestType){
 };
 
 typedef NS_ENUM(NSInteger,QIMHttpRequestSerializer) {
-    QIMHttpRequestSerializerHTTP = 0,
-    QIMHttpRequestSerializerJSON = 1,
-    QIMHttpRequestSerializerPLIST = 2,
+    QIMHttpRequestSerializerHTTP = 1,
+    QIMHttpRequestSerializerJSON = 2,
+    QIMHttpRequestSerializerPLIST = 3,
 };
 
 typedef NS_ENUM(NSInteger,QIMHttpResponseSerializer) {
