@@ -25,7 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendRequest:(void (^)(QIMHTTPRequest *qtRequest))requestHandler
        successBlock:(QIMSuccessHandler)succsessHandler
        failureBlock:(QIMFailureHandler)failureHandler
-        finishBlock:(QIMfinishHandler)finishBlock;
+        finishBlock:(QIMFinishHandler)finishBlock;
+
+- (void)sendRequest:(void (^)(QIMHTTPRequest *qtRequest))requestHandler
+      progressBLock:(QIMProgressHandler)progressHandlder
+       successBlock:(QIMSuccessHandler)succsessHandler
+       failureBlock:(QIMFailureHandler)failureHandler
+        finishBlock:(QIMFinishHandler)finishHandler;
 
 - (void)cancelRequest:(NSString *)identifier;
 

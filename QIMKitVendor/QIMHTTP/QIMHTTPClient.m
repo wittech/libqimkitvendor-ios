@@ -38,15 +38,16 @@ static NSString *baseUrl = nil;
         request.HTTPMethod = QIMHTTPMethodPOST;
     }
     if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient postAFMethodRequest:request complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient postAFMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-         [QIMHTTPClient postAFMethodRequest:request complete:completeHandler failure:failureHandler];
+         [QIMHTTPClient postAFMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     } else {
         
     }
 }
 
 + (void)postAFMethodRequest:(QIMHTTPRequest *)request
+              progressBlock:(QIMProgressHandler)progreeBlock
                    complete:(QIMCompleteHandler)completeHandler
                     failure:(QIMFailureHandler)failureHandler {
     
@@ -69,6 +70,11 @@ static NSString *baseUrl = nil;
             qtRequest.postParams = request.postParams;
         }
         QIMVerboseLog(@"qtRequest : %@", qtRequest);
+    } progressBLock:^(NSProgress *progress) {
+        QIMVerboseLog(@"progress : %@", progress);
+        if (progreeBlock) {
+            progreeBlock(progress);
+        }
     } successBlock:^(id  _Nullable responseObjcet, NSInteger httpCode) {
         QIMVerboseLog(@"AFNetWorkingRebuid:%@,  request : %@",responseObjcet, request);
         QIMHTTPResponse * response = [[QIMHTTPResponse alloc]init];
@@ -84,6 +90,8 @@ static NSString *baseUrl = nil;
             QIMVerboseLog(@"AFNetWorkingError:%@, request : %@",error, request);
             failureHandler(error);
         }
+    } finishBlock:^(id  _Nullable responseObject, NSError * _Nullable error) {
+        
     }];
 }
 

@@ -49,7 +49,7 @@
 - (void)sendRequest:(void (^)(QIMHTTPRequest *qtRequest))requestHandler
        successBlock:(QIMSuccessHandler)succsessHandler
        failureBlock:(nonnull QIMFailureHandler)failureHandler
-        finishBlock:(nonnull QIMfinishHandler)finishBlock {
+        finishBlock:(nonnull QIMFinishHandler)finishBlock {
     [self qimSendRequest:requestHandler progressBLock:nil successBlock:succsessHandler failureBlock:failureHandler finishBlock:finishBlock];
 }
 
@@ -57,7 +57,7 @@
       progressBLock:(QIMProgressHandler)progressHandlder
        successBlock:(QIMSuccessHandler)succsessHandler
        failureBlock:(QIMFailureHandler)failureHandler
-        finishBlock:(QIMfinishHandler)finishHandler {
+        finishBlock:(QIMFinishHandler)finishHandler {
     [self qimSendRequest:requestHandler progressBLock:progressHandlder successBlock:succsessHandler failureBlock:failureHandler finishBlock:finishHandler];
 }
 
@@ -66,7 +66,7 @@
          progressBLock:(QIMProgressHandler)progressHandlder
           successBlock:(QIMSuccessHandler)succsessHandler
           failureBlock:(QIMFailureHandler)failureHandler
-           finishBlock:(QIMfinishHandler)finishHandler {
+           finishBlock:(QIMFinishHandler)finishHandler {
     QIMHTTPRequest *qimRequest = [[QIMHTTPRequest alloc] init];
     request(qimRequest);
     [self processRequest:qimRequest successBlock:succsessHandler progressBLock:progressHandlder failureBlock:failureHandler finishBlock:finishHandler];
@@ -78,7 +78,7 @@
           successBlock:(QIMSuccessHandler)succsessHandler
          progressBLock:(QIMProgressHandler)progressHandlder
           failureBlock:(QIMFailureHandler)failureHandler
-           finishBlock:(QIMfinishHandler)finishHandle {
+           finishBlock:(QIMFinishHandler)finishHandle {
     if (succsessHandler) {
         [request setValue:succsessHandler forKey:@"_successHandler"];
     }
@@ -107,7 +107,6 @@
     if (request.postParams && self.httpRequestConfig.commonParameters.count > 0) {
         [request.postParams addEntriesFromDictionary:self.httpRequestConfig.commonParameters];
     }
-
 }
 
 

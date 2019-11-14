@@ -43,6 +43,6 @@ typedef void(^QIMSuccessHandler) (id _Nullable responseObjcet, NSInteger httpCod
 typedef void(^QIMFailureHandler)(NSError * error);
 typedef void(^QIMProgressHandler)(NSProgress *progress);
 typedef void(^QIMCancleBlock)(id _Nullable request);
-typedef void(^QIMfinishHandler)(id _Nullable responseObject, NSError * _Nullable error);
+typedef void(^QIMFinishHandler)(id _Nullable responseObject, NSError * _Nullable error);
 
 #endif /* QIMHttpCommon_h */

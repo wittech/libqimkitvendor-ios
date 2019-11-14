@@ -57,7 +57,7 @@
 
 @property(nonatomic, copy, readonly, nullable) QIMSuccessHandler successHandler;
 
-@property(nonatomic, copy, readonly, nullable) QIMfinishHandler finishHandler;
+@property(nonatomic, copy, readonly, nullable) QIMFinishHandler finishHandler;
 
 @property(nonatomic, assign) QIMHttpRequestSerializer requestSerializer;
 
