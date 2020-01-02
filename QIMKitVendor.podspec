@@ -167,5 +167,6 @@ Pod::Spec.new do |s|
   
   s.dependency 'ZipArchive'
   s.dependency 'CocoaLumberjack'
-
+  s.dependency 'Reachability'
+  
 end
