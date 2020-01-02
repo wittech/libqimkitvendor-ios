@@ -8,12 +8,13 @@
 
 #import "QIMHTTPClient.h"
 #import "QIMHTTPResponse.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
+//#import "ASIHTTPRequest.h"
+//#import "ASIFormDataRequest.h"
 #import "QIMJSONSerializer.h"
 #import "QIMWatchDog.h"
 #import "QIMPublicRedefineHeader.h"
-
+#import "QIMHttpRequestManager.h"
+#import "QIMHttpRequestConfig.h"
 static NSString *baseUrl = nil;
 
 @implementation QIMHTTPClient
@@ -28,50 +29,87 @@ static NSString *baseUrl = nil;
     }
 }
 
-+ (void)sendRequestWithUrl:(NSString * _Nonnull)url requesetMethod:(QIMHTTPMethod)method requestBody:(id)httpBody requestHeaders:(NSDictionary <NSString *, NSString *> *)httpHeaders complete:(QIMCompleteHandler)completeHandler failure:(QIMFailureHandler)failureHandler {
-    
-}
-
 + (void)sendRequest:(QIMHTTPRequest *)request complete:(QIMCompleteHandler)completeHandler failure:(QIMFailureHandler)failureHandler {
-    if (request.uploadComponents.count > 0 || request.postParams || request.HTTPBody) {
-        request.HTTPMethod = QIMHTTPMethodPOST;
-    }
-    if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient getMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
-    } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-        [QIMHTTPClient postMethodRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
-    } else {
-        
-    }
+    [self sendRequest:request progressBlock:nil complete:completeHandler failure:failureHandler];
 }
 
 + (void)sendRequest:(QIMHTTPRequest *)request progressBlock:(QIMProgressHandler)progreeBlock complete:(QIMCompleteHandler)completeHandler failure:(QIMFailureHandler)failureHandler {
+    if (request.url.absoluteString.length <= 0 || request.url.absoluteString == nil) {
+        if (failureHandler) {
+            failureHandler([NSError errorWithDomain:@"Empty Url String" code:0 userInfo:nil]);
+        }
+        return;
+    }
+    
     if (request.uploadComponents.count > 0 || request.postParams || request.HTTPBody) {
         request.HTTPMethod = QIMHTTPMethodPOST;
     }
     if (request.HTTPMethod == QIMHTTPMethodGET) {
-        [QIMHTTPClient getMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
+        [QIMHTTPClient postAFMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     } else if (request.HTTPMethod == QIMHTTPMethodPOST) {
-        [QIMHTTPClient postMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
+         [QIMHTTPClient postAFMethodRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
     } else {
         
     }
 }
 
-+ (void)getMethodRequest:(QIMHTTPRequest *)request
-           progressBlock:(QIMProgressHandler)progreeBlock
-                complete:(QIMCompleteHandler)completeHandler
-                 failure:(QIMFailureHandler)failureHandler {
-    ASIHTTPRequest *asiRequest = [ASIHTTPRequest requestWithURL:request.url];
-    [asiRequest setRequestMethod:@"GET"];
-    [self configureASIRequest:asiRequest QIMHTTPRequest:request progressBlock:progreeBlock complete:completeHandler failure:failureHandler];
-    if (request.shouldASynchronous) {
-        [asiRequest startAsynchronous];
-    } else {
-        [asiRequest startSynchronous];
-    }
++ (void)postAFMethodRequest:(QIMHTTPRequest *)request
+              progressBlock:(QIMProgressHandler)progreeBlock
+                   complete:(QIMCompleteHandler)completeHandler
+                    failure:(QIMFailureHandler)failureHandler {
+    
+    [[QIMHttpRequestManager sharedManger] sendRequest:^(QIMHTTPRequest * _Nonnull qtRequest) {
+        qtRequest.url = request.url;
+        qtRequest.httpRequestType = request.httpRequestType;
+        qtRequest.HTTPMethod = request.HTTPMethod;
+        qtRequest.timeoutInterval = (request.timeoutInterval > 0) ? request.timeoutInterval : 60;
+        qtRequest.downloadDestinationPath = request.downloadDestinationPath;
+        qtRequest.HTTPRequestHeaders = request.HTTPRequestHeaders;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.retryCount = request.retryCount;
+        qtRequest.userInfo = request.userInfo;
+        qtRequest.uploadComponents = request.uploadComponents;
+        qtRequest.requestSerializer = request.requestSerializer;
+        qtRequest.responseSerializer = request.responseSerializer;
+        if (request.HTTPBody) {
+            qtRequest.postParams = [[QIMJSONSerializer sharedInstance] deserializeObject:request.HTTPBody error:nil];
+        } else {
+            qtRequest.postParams = request.postParams;
+        }
+        QIMVerboseLog(@"qtRequest : %@", qtRequest);
+    } progressBLock:^(NSProgress *progress) {
+        QIMVerboseLog(@"progress : %@", progress);
+        if (progreeBlock) {
+            progreeBlock(progress);
+        }
+    } successBlock:^(id  _Nullable responseObjcet, NSInteger httpCode) {
+        QIMVerboseLog(@"AFNetWorkingRebuid:%@,  request : %@",responseObjcet, request);
+        QIMHTTPResponse *response = [[QIMHTTPResponse alloc] init];
+        response.data = responseObjcet;
+        response.code = httpCode;
+        if ([responseObjcet isKindOfClass:[NSString class]]) {
+            response.responseString = responseObjcet;
+        } else if ([responseObjcet isKindOfClass:[NSURL class]]) {
+            NSURL *filePathUrl = (NSURL *)responseObjcet;
+            response.responseString = filePathUrl.absoluteString;
+        } else {
+            response.responseString = [[NSString alloc] initWithData:responseObjcet encoding:NSUTF8StringEncoding];
+        }
+        QIMVerboseLog(@"【RequestUrl : %@\n RequestHeader : %@\n Response ( %@ )\n", request.url.absoluteString, request.HTTPRequestHeaders, response);
+        if (completeHandler) {
+            completeHandler(response);
+        }
+    } failureBlock:^(NSError *error) {
+        if (failureHandler) {
+            QIMVerboseLog(@"AFNetWorkingError:%@, request : %@",error, request);
+            failureHandler(error);
+        }
+    } finishBlock:^(id  _Nullable responseObject, NSError * _Nullable error) {
+        
+    }];
 }
 
+/*
 + (void)postMethodRequest:(QIMHTTPRequest *)request
             progressBlock:(QIMProgressHandler)progreeBlock
                  complete:(QIMCompleteHandler)completeHandler
@@ -94,8 +132,8 @@ static NSString *baseUrl = nil;
             QIMHTTPUploadComponent *component = request.uploadComponents[i];
             if (component.filePath) {
                 [asiRequest addFile:component.filePath withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
-            } else if (component.data) {
-                [asiRequest addData:component.data withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
+            } else if (component.fileData) {
+                [asiRequest addData:component.fileData withFileName:component.fileName andContentType:component.mimeType forKey:component.dataKey];
             }
             NSDictionary *uploadBodyDic = component.bodyDic;
             for (NSString *uploadBodyKey in component.bodyDic.allKeys) {
@@ -113,7 +151,9 @@ static NSString *baseUrl = nil;
     }
     QIMVerboseLog(@"startSynchronous获取当前线程2 :%@,  %@, %lf", dispatch_get_current_queue(), request.url, [[QIMWatchDog sharedInstance] escapedTimewithStartTime:startTime]);
 }
+*/
 
+/*
 + (void)configureASIRequest:(ASIHTTPRequest *)asiRequest
               QIMHTTPRequest:(QIMHTTPRequest *)request
               progressBlock:(QIMProgressHandler)progreeBlock
@@ -159,18 +199,23 @@ static NSString *baseUrl = nil;
         receiveSize += size;
         float progress = (float)receiveSize/total;
         QIMVerboseLog(@"sent progressValue22 : %lf", progress);
-        if (progreeBlock) {
-            progreeBlock(progress);
-        }
+//        if (progreeBlock) {
+//            progreeBlock(progress);
+//        }
     }];
     [asiRequest setBytesReceivedBlock:^(unsigned long long size, unsigned long long total) {
         receiveSize += size;
         float progress = (float)receiveSize/total;
         QIMVerboseLog(@"download progressValue : %lf", progress);
-        if (progreeBlock) {
-            progreeBlock(progress);
-        }
+//        if (progreeBlock) {
+//            progreeBlock(progress);
+//        }
     }];
+}
+*/
+
++ (void)setCommonRequestConfig:(void (^)(QIMHttpRequestConfig *))configBlock{
+    [[QIMHttpRequestManager sharedManger] setQIMHttpRequestConfig:configBlock];
 }
 
 @end

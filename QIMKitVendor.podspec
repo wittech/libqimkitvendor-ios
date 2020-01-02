@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "QIMKitVendor"
-  s.version      = "3.0.10211613"
+  s.version      = "4.0.53"
   s.summary      = "Qunar chat App 9.0+ version QIMKitVendor"
 
   s.description  = <<-DESC
@@ -14,11 +14,10 @@ Pod::Spec.new do |s|
   s.homepage     = "http://www.im.qunar.com"
   s.license      = "Copyright 2015 Qunar.com"
   s.author        = { "qunar mobile" => "QIMKitVendor@qunar.com" }
-  s.source       = { :git => "https://github.com/qunarcorp/libqimkitvendor-ios.git", :tag=> s.version.to_s}
+  s.source       = { :git => "https://github.com/startalkIM/libqimkitvendor-ios.git", :tag=> s.version.to_s}
   s.ios.deployment_target   = '9.0'
 
   $debug = ENV['debug']
-  $beta = ENV['beta']
  
   s.subspec 'PublicRedefineHeader' do |prHeader|
       prHeader.source_files = "QIMKitVendor/QIMPublicRedefineHeader/QIMPublicRedefineHeader.h"    
@@ -102,13 +101,13 @@ Pod::Spec.new do |s|
       'HEADER_SEARCH_PATHS': "$(SDKROOT)/usr/include/libxml2"
     }
   end
-  
+
   s.subspec 'HTTP' do |http|
       
       http.public_header_files = 'QIMKitVendor/QIMHTTP/**/*.{h}'
       http.source_files = ['QIMKitVendor/QIMHTTP/**/*.{h,m,c}']
-#      http.dependency 'ASIHTTPRequest'
-      http.dependency 'QIMKitVendor/ASI'
+#      http.dependency 'QIMKitVendor/ASI'
+      http.dependency 'AFNetworking'
       http.dependency 'QIMKitVendor/JSON'
       http.dependency 'QIMKitVendor/DOG'
       http.dependency 'QIMKitVendor/PublicRedefineHeader'      
@@ -140,6 +139,18 @@ Pod::Spec.new do |s|
 #    sdwebImage.framework = 'ImageIO'
 #  end
 
+#  s.subspec 'OPENSSL' do |openssl|
+#    openssl.ios.source_files        = 'QIMKitVendor/QIMOpenSSL/include-ios/openssl/**/*.h'
+#    openssl.ios.public_header_files = 'QIMKitVendor/QIMOpenSSL/include-ios/openssl/**/*.h'
+#    openssl.ios.header_dir          = 'QIMKitVendor/QIMOpenSSL/openssl'
+#    openssl.ios.preserve_paths      = 'QIMKitVendor/QIMOpenSSL/lib-ios/libcrypto.a', 'QIMKitVendor/QIMOpenSSL/lib-ios/libssl.a'
+#    openssl.ios.vendored_libraries  = 'QIMKitVendor/QIMOpenSSL/lib-ios/libcrypto.a', 'QIMKitVendor/QIMOpenSSL/lib-ios/libssl.a'
+#
+#    openssl.libraries = 'ssl', 'crypto'
+#    openssl.requires_arc = false
+#
+#  end
+
   s.pod_target_xcconfig = {
     "APPLICATION_EXTENSION_API_ONLY" => "YES",
   }
@@ -147,8 +158,7 @@ Pod::Spec.new do |s|
   
   if $debug
     puts 'debug QIMKitVendor依赖第三方库'
-  elsif $beta
-    puts 'beta QIMKitVendor依赖第三方库'
+
   else
 
     puts '线上release QIMKitVendor依赖第三方库'

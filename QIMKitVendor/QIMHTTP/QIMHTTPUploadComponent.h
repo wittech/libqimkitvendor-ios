@@ -16,11 +16,14 @@
  filePath: 上传的文件路径
  data: 上传的data数据
  */
-@property (nonatomic, copy) NSString *dataKey;
-@property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, copy) NSString *fileName;
-@property (nonatomic, copy) NSString *mimeType;
-@property (nonatomic, strong) NSData *data;
+
+@property (nonatomic, copy, nonnull) NSString *dataKey;
+@property (nonatomic, copy, nullable) NSString * filePath;
+@property (nonatomic, copy, nullable) NSString * fileName;
+@property (nonatomic, copy, nullable) NSString * mimeType;
+//@property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong, nullable) NSData * fileData;
+@property (nonatomic, strong, nullable) NSURL * fileUrl;
 @property (nonatomic, strong) NSDictionary *bodyDic;
 
 /**
@@ -31,6 +34,8 @@
  @return A newly-created and autoreleased ZHHTTPUploadComponent instance.
  */
 - (instancetype)initWithDataKey:(NSString *)dataKey filePath:(NSString *)filePath;
+
++ (QIMHTTPUploadComponent *)addFromDataWithDataKey:(NSString *  _Nonnull)dataKey fileName:(NSString *_Nullable)fileName filePath:(NSString * _Nullable)filePath minetype:(NSString * _Nullable)mimeType fileData:(NSData *  _Nonnull)fileData fileUrl:(NSURL * _Nonnull)fileUrl;
 
 
 - (instancetype)initWithDataKey:(NSString *)dataKey fileData:(NSData *)fileData;
