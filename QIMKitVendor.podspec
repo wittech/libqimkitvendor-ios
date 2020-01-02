@@ -152,7 +152,7 @@ Pod::Spec.new do |s|
 #  end
 
   s.pod_target_xcconfig = {
-    "APPLICATION_EXTENSION_API_ONLY" => "YES",
+    "APPLICATION_EXTENSION_API_ONLY" => "NO",
   }
   s.frameworks = 'Foundation', 'UIKit', 'AVFoundation', 'CoreTelephony', 'AVFoundation'
   
