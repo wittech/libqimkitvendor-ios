@@ -35,7 +35,7 @@ QIMKitVendor是对于一些第三方组件的二次封装库
 我们建议你通过 [Cocoapods](https://cocoapods.org/) 来进行 `QIMKitVendor` 的集成,在 `Podfile` 中加入以下内容:
 
 ```shell
-source 'https://github.com/qunarcorp/libqimkit-ios-cook.git'
+source 'https://github.com/startalkIM/libqimkit-ios-cook.git'
 pod 'QIMKitVendor'
 ```
 
