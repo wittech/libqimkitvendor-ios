@@ -6,7 +6,7 @@
 //
 //
 
-#import "QIMCommonUIFramework.h"
+// #import "QIMCommonUIFramework.h"
 
 @interface QIMStringTransformTools : NSObject
 
